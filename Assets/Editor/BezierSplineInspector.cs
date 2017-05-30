@@ -85,7 +85,7 @@ public class BezierSplineInspector : Editor {
 
 
 	public override void OnInspectorGUI () {
-		//DrawDefaultInspector(); //this shows the list of points in the inspector!
+		DrawDefaultInspector(); //this shows the list of points in the inspector!
 
 		spline = target as BezierSpline;
 		EditorGUI.BeginChangeCheck();
