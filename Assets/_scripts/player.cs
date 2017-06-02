@@ -11,7 +11,7 @@ public class player : MonoBehaviour
 	[Range (40f, 100f)]
 	public float rotationVal;
 	public float playerSpeed, sprintSpeed, crouchSpeed;
-	float horizontal, vertical, upDownLook, leftRightLook, leftRightLookObj;
+	float horizontal, vertical, upDownLook, upDownLookObj, leftRightLook, leftRightLookObj;
 	public bool isCrouching = false;
 
 
@@ -21,6 +21,8 @@ public class player : MonoBehaviour
 	int layerMask = 1 << 8;
  	bool lookatObject = false;
 	GameObject col;
+
+	public Material outlineShader;
 
 	public GameObject pointer;
 	// Use this for initialization
@@ -40,8 +42,8 @@ public class player : MonoBehaviour
 
 		horizontal = Input.GetAxis ("Horizontal");
 		vertical = Input.GetAxis ("Vertical");
-		upDownLook -= Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 		if(!lookatObject){
+			upDownLook -= Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 			upDownLook = Mathf.Clamp (upDownLook, -80f, 80f);
 		}
 		leftRightLook = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
@@ -108,62 +110,74 @@ public class player : MonoBehaviour
 			if (hit.collider != null) {
 				col = hit.collider.gameObject;
 				pointer.GetComponent<Image>().color = Color.red;
+				//col.GetComponent<MeshRenderer>().materials.size = 2;
+				//col.GetComponent<MeshRenderer>().materials[1] = outlineShader;
+
 
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
 				if (Input.GetMouseButtonDown (0) && !carryingObject) {
-					if (!carryingObject) {
+					
 						HeldObjectName = col.name;
 							
 						if(!lookatObject){
-						col.transform.parent = this.transform;
-						col.transform.localPosition = new Vector3 (0f, -0.3f, 1f);
-						col.transform.localEulerAngles = Vector3.zero;
+						col.transform.parent = Camera.main.transform;
+						col.transform.localPosition = new Vector3 (0.5f, -0.8f, 1f);
+						col.transform.localEulerAngles = new Vector3(0,0,0);
 						}
 						control.center = new Vector3 (0, 0, 0.5f);
 						carryingObject = true;
 						hit.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-					}
-				} else if (Input.GetMouseButtonDown (0) && carryingObject) {
-					lookatObject = true;
+
 				}
-
-//				if(lookatObject){
-//					leftRightLookObj += Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
-//					col.transform.localEulerAngles = new Vector3 (-upDownLook, 0f, -leftRightLookObj);
-//
-//
-//					if(Input.GetKeyDown(KeyCode.Space)){
-//						Debug.Log ("stop looking");
-//						lookatObject = false;
-//						upDownLook = 0;
-//					}
-//				}
-
-
 			} 
 
-		}else if(!lookatObject){
+		}else if(!lookatObject && !carryingObject){
 			pointer.GetComponent<Image>().color = Color.white;
 			col = null;
+//			col.GetComponent<MeshRenderer>().materials[1] = null;
 		}
+		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey(KeyCode.LeftControl) && carryingObject) {
+			lookatObject = true;
+		} else if (carryingObject){
+
+			Debug.Log ("stop looking");
+			lookatObject = false;
+			col.transform.localPosition = new Vector3 (0.5f, -0.8f, 1f);
+		
+
+		}
+
 
 		if(lookatObject){
 			leftRightLookObj += Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
-			col.transform.localEulerAngles = new Vector3 (-upDownLook, 0f, -leftRightLookObj);
+			upDownLookObj += Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
+
+			col.transform.localPosition = new Vector3(0f,0f,2f);
+
+			//arreglar esto para que haga sentido bien (como que if x is bigger or smaller than 45 degrees, then leftrightlookobj changes y or z)
+//			if(col.transform.localEulerAngles.x >= 315 && col.transform.localEulerAngles.x <= 45f){
+//				col.transform.localEulerAngles = new Vector3 (upDownLookObj,-leftRightLookObj, 0f);
+//			}
+//			if(col.transform.localEulerAngles.x >= 45f && col.transform.localEulerAngles.x <= 135f){
+//				col.transform.localEulerAngles = new Vector3 (upDownLookObj,leftRightLookObj, 0f);
+//			}
+//			if(col.transform.localEulerAngles.x >= 135f && col.transform.localEulerAngles.x <= 225){
+//				col.transform.localEulerAngles = new Vector3 (upDownLookObj, 0f, leftRightLookObj);
+//			}
+//			if(col.transform.localEulerAngles.x >= 225 && col.transform.localEulerAngles.x <= 315){
+				col.transform.localEulerAngles = new Vector3 (upDownLookObj, 0f, -leftRightLookObj);
+		//	}
+	
+	
 
 
-			if(Input.GetKeyDown(KeyCode.Space)){
-				Debug.Log ("stop looking");
-				lookatObject = false;
-				upDownLook = 0;
-			}
 		}
 
 		if (hit.collider == null && Input.GetMouseButtonDown (0) && carryingObject) {
 
 			Debug.Log ("drop");
-			this.transform.FindChild (HeldObjectName).GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-			this.transform.FindChild (HeldObjectName).parent = null;
+			Camera.main.transform.FindChild (HeldObjectName).GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+			Camera.main.transform.FindChild (HeldObjectName).parent = null;
 			control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			HeldObjectName = "";
