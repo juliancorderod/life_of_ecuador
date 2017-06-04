@@ -42,7 +42,7 @@ public class player : MonoBehaviour
 
 		horizontal = Input.GetAxis ("Horizontal");
 		vertical = Input.GetAxis ("Vertical");
-		if(!lookatObject){
+		if(!lookatObject){//this is so camera doesnt jump when you stop looking at objects
 			upDownLook -= Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 			upDownLook = Mathf.Clamp (upDownLook, -80f, 80f);
 		}
@@ -51,17 +51,17 @@ public class player : MonoBehaviour
 
 
 
-		if (!lookatObject) {//so when you look at stuff you cant move
+		if (!lookatObject) {//so when you're looking at stuff you cant move
 			
-			transform.Rotate (0, leftRightLook, 0);
-			Camera.main.transform.eulerAngles = new Vector3 (upDownLook, transform.eulerAngles.y, 0);
+			transform.Rotate (0, leftRightLook, 0);//player rotation left and right with mouse
+			Camera.main.transform.eulerAngles = new Vector3 (upDownLook, transform.eulerAngles.y, 0);//cam rotation up down with mouse
 
 			//movement stuff
 			if (Input.GetKey (KeyCode.LeftShift)) {//if sprinting
 				control.Move (transform.forward * Time.deltaTime * vertical * sprintSpeed);
 				control.Move (transform.right * Time.deltaTime * horizontal * sprintSpeed);
 			} else {
-				if (isCrouching) {//if crouching
+				if (isCrouching) {//if crouching move slower
 					control.Move (transform.forward * Time.deltaTime * vertical * crouchSpeed);
 					control.Move (transform.right * Time.deltaTime * horizontal * crouchSpeed);
 				} else {//normal
@@ -71,7 +71,7 @@ public class player : MonoBehaviour
 			}
 
 			//jump
-			if (Input.GetKey (KeyCode.Space) && control.isGrounded) {
+			if (Input.GetKey (KeyCode.Space) && control.isGrounded) {//HAVE TO FIX THIS/ DO WE WANT IT?
 				control.Move (transform.up * Time.deltaTime * 100f);
 			}
 
@@ -92,10 +92,10 @@ public class player : MonoBehaviour
 			}
 		}
 			
-		InteractionFunction ();
+		InteractionFunction ();//for when you wanna pick objects
 
 		Debug.DrawRay (Camera.main.transform.position, Camera.main.transform.forward, Color.red);
-		Debug.Log(col);
+		//Debug.Log(col);
 	}
 
 	void InteractionFunction ()
@@ -107,12 +107,10 @@ public class player : MonoBehaviour
 		if (Physics.Raycast (playerRay, out hit, 3, layerMask)) {
 
 
-			if (hit.collider != null) {
+			if (hit.collider != null) {//if hit something
 				col = hit.collider.gameObject;
-				pointer.GetComponent<Image>().color = Color.red;
-				//col.GetComponent<MeshRenderer>().materials.size = 2;
-				//col.GetComponent<MeshRenderer>().materials[1] = outlineShader;
-
+				//pointer.GetComponent<Image>().color = Color.red;
+				col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.black;//sets the outline object on when raycast is colliding
 
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
 				if (Input.GetMouseButtonDown (0) && !carryingObject) {
@@ -132,13 +130,18 @@ public class player : MonoBehaviour
 			} 
 
 		}else if(!lookatObject && !carryingObject){
-			pointer.GetComponent<Image>().color = Color.white;
+		//	pointer.GetComponent<Image>().color = Color.white;
+
+
+			if(col != null){
+			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;//if raycast not colliding dont show outline
+			}
+
 			col = null;
-//			col.GetComponent<MeshRenderer>().materials[1] = null;
 		}
-		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey(KeyCode.LeftControl) && carryingObject) {
+		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey(KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
 			lookatObject = true;
-		} else if (carryingObject){
+		} else if (carryingObject){//if not holding ctrl or right mouse stop looking
 
 			Debug.Log ("stop looking");
 			lookatObject = false;
@@ -148,7 +151,7 @@ public class player : MonoBehaviour
 		}
 
 
-		if(lookatObject){
+		if(lookatObject){//look at object
 			leftRightLookObj += Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj += Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 
@@ -173,7 +176,7 @@ public class player : MonoBehaviour
 
 		}
 
-		if (hit.collider == null && Input.GetMouseButtonDown (0) && carryingObject) {
+		if (hit.collider == null && Input.GetMouseButtonDown (0) && carryingObject) {//drop object
 
 			Debug.Log ("drop");
 			Camera.main.transform.FindChild (HeldObjectName).GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
@@ -182,6 +185,7 @@ public class player : MonoBehaviour
 			carryingObject = false;
 			HeldObjectName = "";
 			lookatObject = false;
+			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;
 			col = null;
 
 		}

@@ -152,7 +152,7 @@ Shader "Stencil/Outline"
              
              half4 frag(g2f IN) : COLOR
              {
-                 _Color.a = 1;
+               //  _Color.a = 1;
                  return _Color;
              }
              
