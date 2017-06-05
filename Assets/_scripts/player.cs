@@ -12,17 +12,15 @@ public class player : MonoBehaviour
 	public float rotationVal;
 	public float playerSpeed, sprintSpeed, crouchSpeed;
 	float horizontal, vertical, upDownLook, upDownLookObj, leftRightLook, leftRightLookObj;
-	public bool isCrouching = false;
+	bool isCrouching = false;
 
 
 	RaycastHit hit;
 	bool carryingObject = false;
 	public string HeldObjectName = "";
 	int layerMask = 1 << 8;
- 	bool lookatObject = false;
+	bool lookatObject = false;
 	GameObject col;
-
-	public Material outlineShader;
 
 	public GameObject pointer;
 	// Use this for initialization
@@ -42,7 +40,7 @@ public class player : MonoBehaviour
 
 		horizontal = Input.GetAxis ("Horizontal");
 		vertical = Input.GetAxis ("Vertical");
-		if(!lookatObject){//this is so camera doesnt jump when you stop looking at objects
+		if (!lookatObject) {//this is so camera doesnt jump when you stop looking at objects
 			upDownLook -= Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 			upDownLook = Mathf.Clamp (upDownLook, -80f, 80f);
 		}
@@ -110,67 +108,61 @@ public class player : MonoBehaviour
 			if (hit.collider != null) {//if hit something
 				col = hit.collider.gameObject;
 				//pointer.GetComponent<Image>().color = Color.red;
-				col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.black;//sets the outline object on when raycast is colliding
+				col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.black;//sets the outline object on when raycast is colliding
 
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
 				if (Input.GetMouseButtonDown (0) && !carryingObject) {
 					
-						HeldObjectName = col.name;
+					HeldObjectName = col.name;
 							
-						if(!lookatObject){
+					if (!lookatObject) {
 						col.transform.parent = Camera.main.transform;
 						col.transform.localPosition = new Vector3 (0.5f, -0.8f, 1f);
-						col.transform.localEulerAngles = new Vector3(0,0,0);
-						}
-						control.center = new Vector3 (0, 0, 0.5f);
-						carryingObject = true;
-						hit.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
+					}
+					control.center = new Vector3 (0, 0, 0.5f);
+					carryingObject = true;
+					hit.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
+					col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
 
 				}
 			} 
 
-		}else if(!lookatObject && !carryingObject){
-		//	pointer.GetComponent<Image>().color = Color.white;
+		} else if (!lookatObject && !carryingObject) {
+			//	pointer.GetComponent<Image>().color = Color.white;
 
 
-			if(col != null){
-			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;//if raycast not colliding dont show outline
+			if (col != null) {
+				col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;//if raycast not colliding dont show outline
 			}
 
 			col = null;
 		}
-		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey(KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
+		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey (KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
 			lookatObject = true;
-		} else if (carryingObject){//if not holding ctrl or right mouse stop looking
+		} else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 
 			Debug.Log ("stop looking");
 			lookatObject = false;
 			col.transform.localPosition = new Vector3 (0.5f, -0.8f, 1f);
+
+			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;
 		
 
 		}
 
 
-		if(lookatObject){//look at object
-			leftRightLookObj += Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
-			upDownLookObj += Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
+		if (lookatObject) {//look at object
+			col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
 
-			col.transform.localPosition = new Vector3(0f,0f,2f);
+			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
+			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 
-			//arreglar esto para que haga sentido bien (como que if x is bigger or smaller than 45 degrees, then leftrightlookobj changes y or z)
-//			if(col.transform.localEulerAngles.x >= 315 && col.transform.localEulerAngles.x <= 45f){
-//				col.transform.localEulerAngles = new Vector3 (upDownLookObj,-leftRightLookObj, 0f);
-//			}
-//			if(col.transform.localEulerAngles.x >= 45f && col.transform.localEulerAngles.x <= 135f){
-//				col.transform.localEulerAngles = new Vector3 (upDownLookObj,leftRightLookObj, 0f);
-//			}
-//			if(col.transform.localEulerAngles.x >= 135f && col.transform.localEulerAngles.x <= 225){
-//				col.transform.localEulerAngles = new Vector3 (upDownLookObj, 0f, leftRightLookObj);
-//			}
-//			if(col.transform.localEulerAngles.x >= 225 && col.transform.localEulerAngles.x <= 315){
-				col.transform.localEulerAngles = new Vector3 (upDownLookObj, 0f, -leftRightLookObj);
-		//	}
-	
+			col.transform.localPosition = new Vector3 (0f, 0f, 2f);
+
+			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
+			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
 	
 
 
@@ -185,7 +177,7 @@ public class player : MonoBehaviour
 			carryingObject = false;
 			HeldObjectName = "";
 			lookatObject = false;
-			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;
+			col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
 			col = null;
 
 		}
