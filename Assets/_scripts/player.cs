@@ -102,7 +102,7 @@ public class player : MonoBehaviour
 		Ray playerRay = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
 
 		//this is so the raycast only hits stuff on the 'pickable' layer 
-		if (Physics.Raycast (playerRay, out hit, 3, layerMask)) {
+		if (Physics.Raycast (playerRay, out hit, 3, layerMask) && !carryingObject) {
 
 
 			if (hit.collider != null) {//if hit something
@@ -117,12 +117,14 @@ public class player : MonoBehaviour
 							
 					if (!lookatObject) {
 						col.transform.parent = Camera.main.transform;
-						col.transform.localPosition = new Vector3 (0.5f, -0.8f, 1f);
+						col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
 						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
 					}
 					control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
-					hit.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+					if(col.gameObject.GetComponent<Rigidbody>() == true){
+						col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+					}
 
 					col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
 
@@ -145,7 +147,7 @@ public class player : MonoBehaviour
 
 			Debug.Log ("stop looking");
 			lookatObject = false;
-			col.transform.localPosition = new Vector3 (0.5f, -0.8f, 1f);
+			col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
 
 			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;
 		
@@ -171,8 +173,10 @@ public class player : MonoBehaviour
 		if (hit.collider == null && Input.GetMouseButtonDown (0) && carryingObject) {//drop object
 
 			Debug.Log ("drop");
-			Camera.main.transform.FindChild (HeldObjectName).GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-			Camera.main.transform.FindChild (HeldObjectName).parent = null;
+			if(col.gameObject.GetComponent<Rigidbody>() == true){
+				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			}
+			col.transform.parent = null;
 			control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			HeldObjectName = "";
