@@ -86,7 +86,7 @@ public class player : MonoBehaviour
 				Camera.main.transform.localPosition = Vector3.zero;
 			} else {
 				control.height = 2;
-				Camera.main.transform.localPosition = new Vector3 (0, 0.75f, 0);
+				//Camera.main.transform.localPosition = new Vector3 (0, 0.75f, 0);
 			}
 		}
 			
