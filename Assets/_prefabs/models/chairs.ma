@@ -1,6 +1,6 @@
 //Maya ASCII 2017 scene
 //Name: chairs.ma
-//Last modified: Mon, Jun 12, 2017 02:46:24 PM
+//Last modified: Mon, Jun 12, 2017 02:55:37 PM
 //Codeset: UTF-8
 requires maya "2017";
 requires "stereoCamera" "10.0";
@@ -14,13 +14,13 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "13A6D6D7-DA41-38A2-2C3B-6C8B3F72461F";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 8.925497836969333 31.304404130100778 12.938245672362218 ;
+	setAttr ".t" -type "double3" 7.5007203506547917 26.307281163781834 10.872913129236984 ;
 	setAttr ".r" -type "double3" -63.338352737715717 394.59999999968721 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "C2F444EC-0645-E3C5-BA55-2B80700BE0CD";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999986;
-	setAttr ".coi" 35.028965594994773;
+	setAttr ".coi" 29.437290770783946;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
