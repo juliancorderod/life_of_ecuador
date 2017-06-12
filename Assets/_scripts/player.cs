@@ -108,7 +108,7 @@ public class player : MonoBehaviour
 			if (hit.collider != null) {//if hit something
 				col = hit.collider.gameObject;
 				//pointer.GetComponent<Image>().color = Color.red;
-				col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.black;//sets the outline object on when raycast is colliding
+				col.gameObject.GetComponent<thing>().SetCloneActive(true);//sets the outline object on when raycast is colliding
 
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
 				if (Input.GetMouseButtonDown (0) && !carryingObject) {
@@ -126,7 +126,7 @@ public class player : MonoBehaviour
 						col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 					}
 
-					col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
+					col.gameObject.GetComponent<thing>().SetCloneActive(false);
 
 				}
 			} 
@@ -136,7 +136,7 @@ public class player : MonoBehaviour
 
 
 			if (col != null) {
-				col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;//if raycast not colliding dont show outline
+				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
 			}
 
 			col = null;
@@ -149,14 +149,14 @@ public class player : MonoBehaviour
 			lookatObject = false;
 			col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
 
-			col.transform.GetComponent<MeshRenderer>().materials[0].color = Color.clear;
+			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 		
 
 		}
 
 
 		if (lookatObject) {//look at object
-			col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
+			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 
 			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
@@ -181,7 +181,7 @@ public class player : MonoBehaviour
 			carryingObject = false;
 			HeldObjectName = "";
 			lookatObject = false;
-			col.transform.GetComponent<MeshRenderer> ().materials [0].color = Color.clear;
+			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 			col = null;
 
 		}

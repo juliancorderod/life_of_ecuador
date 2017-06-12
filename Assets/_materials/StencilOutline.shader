@@ -160,5 +160,4 @@ Shader "Stencil/Outline"
  
          }
      }
-     FallBack "Diffuse"
  }
