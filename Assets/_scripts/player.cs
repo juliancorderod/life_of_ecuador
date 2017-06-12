@@ -24,6 +24,9 @@ public class player : MonoBehaviour
 	GameObject col;
 
 	public GameObject pointer;
+
+	public Camera object_camera;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -113,6 +116,7 @@ public class player : MonoBehaviour
 			carryingObject = false;
 			lookatObject = false;
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
+			col.layer = 8;
 			col = null;
 		}
 
@@ -133,6 +137,7 @@ public class player : MonoBehaviour
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
+					col.layer = 9;
 					if(col.gameObject.GetComponent<Rigidbody>() != null){
 						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotation;
 						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionY;
@@ -146,19 +151,25 @@ public class player : MonoBehaviour
 			//	pointer.GetComponent<Image>().color = Color.white;
 			if (col != null) {
 				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
+				col.layer = 8;
 			}
 			//fuck
+
 			col = null;
+
 		}
 		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey (KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
 			lookatObject = true;
+			object_camera.orthographic = true;
+			object_camera.orthographicSize = col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude / 2f;
 		} else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 
 			if(lookatObject)
 				col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
 			
 			lookatObject = false;
-			
+			object_camera.orthographic = false;
+
 
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 		
