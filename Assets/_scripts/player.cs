@@ -146,7 +146,7 @@ public class player : MonoBehaviour
 			if (col != null) {
 				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
 			}
-
+			//fuck
 			col = null;
 		}
 		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey (KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
