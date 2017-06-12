@@ -39,10 +39,12 @@ public class thing : MonoBehaviour {
 
 	void SetClone(){
 		if (_cloneActive && !_clone.activeInHierarchy) {
-			_clone.GetComponent<MeshRenderer> ().material.color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
+			_clone.GetComponent<MeshRenderer> ().materials[0].color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
+			_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
 			_clone.SetActive (true);
 		} else if (!_cloneActive && _clone.activeInHierarchy) {
-			_clone.GetComponent<MeshRenderer> ().material.color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
+			_clone.GetComponent<MeshRenderer> ().materials[0].color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
+			_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
 			_clone.SetActive (false);
 		}
 	}
