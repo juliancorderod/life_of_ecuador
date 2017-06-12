@@ -100,54 +100,64 @@ public class player : MonoBehaviour
 	{
 		//this creates raycast in front of player used to grab objects
 		Ray playerRay = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
+		Physics.Raycast (playerRay, out hit, 3, layerMask);
+
+		if (Input.GetMouseButtonDown (0) && carryingObject) {//drop object
+			Debug.Log ("drop");
+			if(col.gameObject.GetComponent<Rigidbody>() == true){
+				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			}
+			col.transform.parent = null;
+			control.center = new Vector3 (0, 0, 0);
+			carryingObject = false;
+			lookatObject = false;
+			col.gameObject.GetComponent<thing>().SetCloneActive(false);
+			col = null;
+		}
 
 		//this is so the raycast only hits stuff on the 'pickable' layer 
-		if (Physics.Raycast (playerRay, out hit, 3, layerMask) && !carryingObject) {
-
-
+		if (hit.collider != null && !carryingObject) {
 			if (hit.collider != null) {//if hit something
 				col = hit.collider.gameObject;
 				//pointer.GetComponent<Image>().color = Color.red;
 				col.gameObject.GetComponent<thing>().SetCloneActive(true);//sets the outline object on when raycast is colliding
 
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
-				if (Input.GetMouseButtonDown (0) && !carryingObject) {
-					
-					HeldObjectName = col.name;
-							
+				if (Input.GetMouseButtonDown (0) && !carryingObject && hit.collider != null && HeldObjectName == "") {
 					if (!lookatObject) {
+						Debug.Log ("hit");
 						col.transform.parent = Camera.main.transform;
 						col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
 						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
 					}
-					control.center = new Vector3 (0, 0, 0.5f);
+					//control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
-					if(col.gameObject.GetComponent<Rigidbody>() == true){
-						col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+					if(col.gameObject.GetComponent<Rigidbody>() != null){
+						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotation;
+						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionY;
 					}
 
 					col.gameObject.GetComponent<thing>().SetCloneActive(false);
-
 				}
 			} 
 
 		} else if (!lookatObject && !carryingObject) {
 			//	pointer.GetComponent<Image>().color = Color.white;
-
-
 			if (col != null) {
 				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
 			}
-
+			//fuck
 			col = null;
 		}
 		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey (KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
 			lookatObject = true;
 		} else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 
-			Debug.Log ("stop looking");
+			if(lookatObject)
+				col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
+			
 			lookatObject = false;
-			col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
+			
 
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 		
@@ -165,26 +175,12 @@ public class player : MonoBehaviour
 
 			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
 			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
-	
-
-
 		}
 
-		if (hit.collider == null && Input.GetMouseButtonDown (0) && carryingObject) {//drop object
-
-			Debug.Log ("drop");
-			if(col.gameObject.GetComponent<Rigidbody>() == true){
-				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			}
-			col.transform.parent = null;
-			control.center = new Vector3 (0, 0, 0);
-			carryingObject = false;
+		if (carryingObject)
+			HeldObjectName = col.name;
+		else
 			HeldObjectName = "";
-			lookatObject = false;
-			col.gameObject.GetComponent<thing>().SetCloneActive(false);
-			col = null;
-
-		}
 	}
 		
 }
