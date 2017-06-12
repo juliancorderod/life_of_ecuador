@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class player : MonoBehaviour
 {
 
+
 	CharacterController control;
 
 	[Range (40f, 100f)]
