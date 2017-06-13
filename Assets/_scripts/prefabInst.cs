@@ -9,16 +9,24 @@ public class prefabInst : MonoBehaviour {
 
 	List<Transform> prefabList = new List<Transform>();
 
+	private GameObject[] _prefabs;
+	private GameObject[] _list;
+
 	// Use this for initialization
 	void Start () {
+		_prefabs = Resources.LoadAll<GameObject> ("_prefabs/stuff");
+		_list = new GameObject[_prefabs.Length];
 
-		for(int i = 0; i < 100; i++){
-			Transform newPrefab = (Transform) Instantiate(prefabTest, (Random.insideUnitSphere ) + (new Vector3(0f,4f,0f)), Random.rotation);
-			//Transform newPrefab = (Transform) Instantiate(prefabTest, new Vector3(0f,2f,0f), Random.rotation);
-			newPrefab.localScale = Vector3.one * 0.25f;
+		GameObject newPrefab;
 
 
-			prefabList.Add (newPrefab);
+
+		for(int i = 0; i < _prefabs.Length; i++){
+			newPrefab = Instantiate (_prefabs [i], (Random.insideUnitSphere) + (new Vector3 (0f, 4f, 0f)), Random.rotation) as GameObject;
+			newPrefab.transform.localScale = Vector3.one * 0.25f;
+
+
+			_list [i] = newPrefab;
 		}
 
 		
@@ -26,12 +34,9 @@ public class prefabInst : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-
 		for(int i=0; i<prefabList.Count; i++){
 
-			prefabList[i].Rotate(0,0,10 * Time.deltaTime);
+			_list[i].transform.Rotate(0,0,10 * Time.deltaTime);
 
 		}
 		
