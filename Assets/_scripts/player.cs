@@ -117,6 +117,10 @@ public class player : MonoBehaviour
 			carryingObject = false;
 			lookatObject = false;
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
+			if (col.transform.childCount > 0) {
+				for (int i = 0; i < col.transform.childCount; i++)
+					col.transform.GetChild (i).gameObject.layer = 8;
+			}
 			col.layer = 8;
 			col = null;
 		}
@@ -138,6 +142,10 @@ public class player : MonoBehaviour
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
+					if (col.transform.childCount > 0) {
+						for (int i = 0; i < col.transform.childCount; i++)
+							col.transform.GetChild (i).gameObject.layer = 9;
+					}
 					col.layer = 9;
 					if(col.gameObject.GetComponent<Rigidbody>() != null){
 						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotation;
@@ -152,6 +160,10 @@ public class player : MonoBehaviour
 			//	pointer.GetComponent<Image>().color = Color.white;
 			if (col != null) {
 				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
+				if (col.transform.childCount > 0) {
+					for (int i = 0; i < col.transform.childCount; i++)
+						col.transform.GetChild (i).gameObject.layer = 8;
+				}
 				col.layer = 8;
 			}
 			//fuck
