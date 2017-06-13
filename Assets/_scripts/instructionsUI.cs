@@ -4,78 +4,45 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class instructionsUI : MonoBehaviour {
+	public GameObject menu;
+	public GameObject tut;
+	public GameObject[] tut_items;
 
-	public GameObject WASD, look, pick, examine, sprint, crouch, title, pressSpace, pressEsc, website, space;
-
-	string tutPic = "";
+	private int _ind;
+	private int _maxInd;
 
 	// Use this for initialization
 	void Start () {
-		tutPic = "WASD";
-		tutPic = "look";
-		tutPic = "pick";
-		tutPic = "examine";
-		tutPic = "sprint";
-		tutPic = "crouch";
-		
+		_ind = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		if(Input.GetKeyDown(KeyCode.Space)){
-			if(tutPic == ""){
-				tutPic = "WASD";
-			}
-			if(tutPic == "WASD"){
-				tutPic = "look";
-			}
-			if(tutPic == "look"){
-				tutPic = "pick";
-			}
-			if(tutPic == "pick"){
-				tutPic = "examine";
-			}
-			if(tutPic == "examine"){
-				tutPic = "sprint";
-			}
-			if(tutPic == "sprint"){
-				tutPic = "crouch";
-			}
-			if(tutPic == "crouch"){
+			if (_ind >= tut_items.Length)
 				SceneManager.LoadScene ("_MAIN_SCENE");
+			else {
+				++_ind;
+				Switch (_ind);
 			}
 		}
+	}
 
-		if(tutPic == "WASD"){
-			title.SetActive(false);
-			pressSpace.SetActive(false);
-			pressEsc.SetActive(false);
-			website.SetActive(false);
+	void Switch(int _i){
+		if (_i == 0) {
+			menu.SetActive (true);
+			tut.SetActive (false);
+		} else {
+			menu.SetActive (false);
+			tut.SetActive (true);
+		}
+			
 
-			space.SetActive(true);
-			WASD.SetActive(true);
+		for (int i = 0; i < tut_items.Length; i++) {
+			if (_i == i + 1)
+				tut_items [i].SetActive (true);
+			else
+				tut_items [i].SetActive (false);	
 		}
-		if(tutPic == "look"){
-			WASD.SetActive(false);
-			look.SetActive(true);
-		}
-		if(tutPic == "pick"){
-			look.SetActive(false);
-			pick.SetActive(true);
-		}
-		if(tutPic == "examine"){
-			pick.SetActive(false);
-			examine.SetActive(true);
-		}
-		if(tutPic == "sprint"){
-			examine.SetActive(false);
-			sprint.SetActive(true);
-		}
-		if(tutPic == "crouch"){
-			sprint.SetActive(false);
-			crouch.SetActive(true);
-		}
-		
 	}
 }
