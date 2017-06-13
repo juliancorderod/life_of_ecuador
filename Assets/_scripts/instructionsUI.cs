@@ -27,7 +27,7 @@ public class instructionsUI : MonoBehaviour {
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.Escape)){
+		if(Time.timeSinceLevelLoad > Time.deltaTime && Input.GetKeyDown(KeyCode.Escape)){
 			Application.Quit();
 		}
 	}
