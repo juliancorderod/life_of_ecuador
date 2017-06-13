@@ -112,7 +112,8 @@ public class player : MonoBehaviour
 				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			}
 			col.transform.parent = null;
-			control.center = new Vector3 (0, 0, 0);
+			col.transform.localPosition = Camera.main.transform.position +  (Camera.main.transform.forward * 2f);
+			//control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			lookatObject = false;
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
@@ -132,7 +133,7 @@ public class player : MonoBehaviour
 					if (!lookatObject) {
 						Debug.Log ("hit");
 						col.transform.parent = Camera.main.transform;
-						col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
+						col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1.3f);
 						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);

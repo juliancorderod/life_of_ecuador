@@ -26,6 +26,10 @@ public class instructionsUI : MonoBehaviour {
 				Switch (_ind);
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape)){
+			Application.Quit();
+		}
 	}
 
 	void Switch(int _i){
