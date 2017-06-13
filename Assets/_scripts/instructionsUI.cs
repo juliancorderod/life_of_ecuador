@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class instructionsUI : MonoBehaviour {
 
-	
+	public GameObject WASD, look, pick, examine, sprint, crouch;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +13,15 @@ public class instructionsUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(Input.GetKey(KeyCode.Space)){
+			tutorialSlideshow();
+		}
+
 		
+	}
+
+	void tutorialSlideshow(){
+
 	}
 }
