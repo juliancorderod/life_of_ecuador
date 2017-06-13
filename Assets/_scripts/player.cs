@@ -73,9 +73,9 @@ public class player : MonoBehaviour
 			}
 
 			//jump
-			if (Input.GetKey (KeyCode.Space) && control.isGrounded) {//HAVE TO FIX THIS/ DO WE WANT IT?
-				control.Move (transform.up * Time.deltaTime * 100f);
-			}
+//			if (Input.GetKey (KeyCode.Space) && control.isGrounded) {//HAVE TO FIX THIS/ DO WE WANT IT?
+//				control.Move (transform.up * Time.deltaTime * 100f);
+//			}
 
 			//crouch stuff
 			if (Input.GetKeyDown (KeyCode.C) && !isCrouching) {
