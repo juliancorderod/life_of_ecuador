@@ -26,17 +26,27 @@ public class pauseMenuActive : MonoBehaviour {
 
 			}
 		}
+
+		if(pauseMenuOnBool){
+			Cursor.lockState = CursorLockMode.None;
+		}else{
+			Cursor.lockState = CursorLockMode.Locked;
+		}
+
 		Debug.Log(pauseMenuOnBool);
 	}
 
 	void pauseMenuOn(){
+		
 		pauseMenuOnBool = true;
 		backgroundCam.depth = 1;
 		//playerObj.GetComponent<player>().enabled = false;
 		pauseMenuUI.SetActive (true);
+
 	}
 
 	void pauseMenuOff(){
+		
 		backgroundCam.depth = -3;
 		pauseMenuUI.SetActive (false);
 		//playerObj.GetComponent<player>().enabled = true;
