@@ -183,7 +183,7 @@ public class player : MonoBehaviour
 			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 
-			col.transform.localPosition = new Vector3 (0f, 0f, 2f);
+			col.transform.localPosition = new Vector3 (0f, 0f, 8f);
 
 			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
 			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
