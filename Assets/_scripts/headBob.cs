@@ -26,8 +26,9 @@ public class headBob : MonoBehaviour {
 			}else{
 				lerpVal += Time.deltaTime * 5;
 			}
+		} else{
+			lerpVal += Time.deltaTime * 5;
 		}
-
 
 		if(Input.GetKey(KeyCode.LeftShift)){
 
@@ -36,6 +37,7 @@ public class headBob : MonoBehaviour {
 
 		yVal = Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* freq)/amplitude), 0.75f, lerpVal);
 		}
+
 		yVal = Mathf.Clamp(yVal,clamp,100f);
 
 		transform.localPosition = new Vector3(transform.localPosition.x, yVal, transform.localPosition.z);
