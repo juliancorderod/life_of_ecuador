@@ -49,6 +49,7 @@ ModelImporter:
     100082: transform9
     100084: pCylinder8
     100086: wall2 1
+    100088: pCylinder9
     400000: group1
     400002: pCube1
     400004: pCube2
@@ -93,6 +94,7 @@ ModelImporter:
     400082: transform9
     400084: pCylinder8
     400086: wall2 1
+    400088: pCylinder9
     2300000: pCube1
     2300002: pCube2
     2300004: pCube5
@@ -116,6 +118,7 @@ ModelImporter:
     2300040: pPipe7
     2300042: transform4
     2300044: pCylinder8
+    2300046: pCylinder9
     3300000: pCube1
     3300002: pCube2
     3300004: pCube5
@@ -139,6 +142,7 @@ ModelImporter:
     3300040: pPipe7
     3300042: transform4
     3300044: pCylinder8
+    3300046: pCylinder9
     4300000: pCube1
     4300002: pCube2
     4300004: pCube5
@@ -162,6 +166,7 @@ ModelImporter:
     4300040: pCylinder7
     4300042: transform4
     4300044: pCylinder8
+    4300046: pCylinder9
     9500000: //RootNode
   materials:
     importMaterials: 1
