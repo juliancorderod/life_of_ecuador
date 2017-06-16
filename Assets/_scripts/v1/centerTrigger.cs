@@ -6,6 +6,7 @@ public class centerTrigger : MonoBehaviour {
 
 	public GameObject songScript;
 
+
 	// Use this for initialization
 	void Start () {
 
@@ -21,9 +22,11 @@ public class centerTrigger : MonoBehaviour {
 	void OnTriggerEnter(){
 		songScript.GetComponent<songScript>().muteSong();
 
+
 	}
 	void OnTriggerExit(){
 		songScript.GetComponent<songScript>().unMuteSong();
+
 
 	}
 }
