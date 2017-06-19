@@ -20,10 +20,12 @@ public class jungleTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(){
 		songScript.GetComponent<songScript>().unMuteSong();
+		songScript.GetComponent<songScript>().motBlurOn();
 
 	}
 	void OnTriggerExit(){
 		songScript.GetComponent<songScript>().muteSong();
+		songScript.GetComponent<songScript>().motBlurOff();
 
 	}
 }
