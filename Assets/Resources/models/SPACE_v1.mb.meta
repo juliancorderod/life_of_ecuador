@@ -83,6 +83,7 @@ ModelImporter:
     100150: polySurface16
     100152: polySurface17
     100154: polySurface20
+    100156: bottom1
     400000: group1
     400002: pCube1
     400004: pCube2
@@ -161,6 +162,7 @@ ModelImporter:
     400150: polySurface16
     400152: polySurface17
     400154: polySurface20
+    400156: bottom1
     2300000: pCube1
     2300002: pCube2
     2300004: pCube5
