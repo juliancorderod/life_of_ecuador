@@ -148,8 +148,8 @@ public class player : MonoBehaviour
 					}
 					col.layer = 9;
 					if(col.gameObject.GetComponent<Rigidbody>() != null){
-						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotation;
-						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionY;
+						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
+						//col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePosition;
 					}
 
 					col.gameObject.GetComponent<thing>().SetCloneActive(false);
