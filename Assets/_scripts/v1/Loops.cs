@@ -31,7 +31,7 @@ public class Loops : MonoBehaviour {
 
 			_timeSince = 0f;
 		}
-		_timeSince += Time.deltaTime;
+		//_timeSince += Time.deltaTime;
 
 		if (!_isSecond) {
 			GetComponent<MeshRenderer> ().materials[0].color = new Color (GetComponent<MeshRenderer> ().materials[0].color.r,
@@ -45,7 +45,7 @@ public class Loops : MonoBehaviour {
 				(_timeSince) / _timeBetweenFrames);
 		}
 
-		GetComponent<MeshRenderer> ().materials[0].mainTexture = _frames [_ind];
+		GetComponent<MeshRenderer> ().materials[0].SetTexture("_BumpMap", _frames [_ind]);
 		GetComponent<MeshRenderer> ().materials[0].mainTextureOffset = Vector3.up * Time.timeSinceLevelLoad * _shiftSpeed;
 	}
 }
