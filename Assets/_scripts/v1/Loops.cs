@@ -34,18 +34,18 @@ public class Loops : MonoBehaviour {
 		_timeSince += Time.deltaTime;
 
 		if (!_isSecond) {
-			GetComponent<MeshRenderer> ().material.color = new Color (GetComponent<MeshRenderer> ().material.color.r,
-				GetComponent<MeshRenderer> ().material.color.g,
-				GetComponent<MeshRenderer> ().material.color.b,
+			GetComponent<MeshRenderer> ().materials[0].color = new Color (GetComponent<MeshRenderer> ().materials[0].color.r,
+				GetComponent<MeshRenderer> ().materials[0].color.g,
+				GetComponent<MeshRenderer> ().materials[0].color.b,
 				(_timeBetweenFrames - _timeSince) / _timeBetweenFrames);
 		} else {
-			GetComponent<MeshRenderer> ().material.color = new Color (GetComponent<MeshRenderer> ().material.color.r,
-				GetComponent<MeshRenderer> ().material.color.g,
-				GetComponent<MeshRenderer> ().material.color.b,
+			GetComponent<MeshRenderer> ().materials[0].color = new Color (GetComponent<MeshRenderer> ().materials[0].color.r,
+				GetComponent<MeshRenderer> ().materials[0].color.g,
+				GetComponent<MeshRenderer> ().materials[0].color.b,
 				(_timeSince) / _timeBetweenFrames);
 		}
 
-		GetComponent<MeshRenderer> ().material.mainTexture = _frames [_ind];
-		GetComponent<MeshRenderer> ().material.mainTextureOffset = Vector3.up * Time.timeSinceLevelLoad * _shiftSpeed;
+		GetComponent<MeshRenderer> ().materials[0].mainTexture = _frames [_ind];
+		GetComponent<MeshRenderer> ().materials[0].mainTextureOffset = Vector3.up * Time.timeSinceLevelLoad * _shiftSpeed;
 	}
 }
