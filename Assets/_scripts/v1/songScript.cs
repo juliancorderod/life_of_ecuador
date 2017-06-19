@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 public class songScript : MonoBehaviour {
 
@@ -31,4 +32,14 @@ public class songScript : MonoBehaviour {
 
 		mute = false;
 	}
+
+	public void motBlurOn(){
+		Camera.main.GetComponent<MotionBlur>().enabled = true;
+
+	}
+	public void motBlurOff(){
+		Camera.main.GetComponent<MotionBlur>().enabled = false;
+
+	}
+
 }

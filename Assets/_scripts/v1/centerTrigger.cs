@@ -21,11 +21,13 @@ public class centerTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(){
 		songScript.GetComponent<songScript>().muteSong();
+		songScript.GetComponent<songScript>().motBlurOff();
 
 
 	}
 	void OnTriggerExit(){
 		songScript.GetComponent<songScript>().unMuteSong();
+		songScript.GetComponent<songScript>().motBlurOn();
 
 
 	}
