@@ -17,6 +17,18 @@ ModelImporter:
     100018: transform3
     100020: transform4
     100022: transform5
+    100024: ass
+    100026: bottomBody
+    100028: centerBody
+    100030: head
+    100032: leftElbow
+    100034: leftHand
+    100036: neck
+    100038: rightElbow
+    100040: rightHand
+    100042: leftMouse
+    100044: mouth
+    100046: rightMouth
     400000: pSphere1
     400002: pSphere2
     400004: pSphere3
@@ -29,6 +41,18 @@ ModelImporter:
     400018: transform3
     400020: transform4
     400022: transform5
+    400024: ass
+    400026: bottomBody
+    400028: centerBody
+    400030: head
+    400032: leftElbow
+    400034: leftHand
+    400036: neck
+    400038: rightElbow
+    400040: rightHand
+    400042: leftMouse
+    400044: mouth
+    400046: rightMouth
     2300000: pSphere1
     2300002: pSphere2
     2300004: pSphere3
@@ -47,7 +71,9 @@ ModelImporter:
     4300006: pSphere4
     4300008: pCylinder1
     4300010: pSphere5
+    7400000: Take 001
     9500000: //RootNode
+    13700000: pSphere5
   materials:
     importMaterials: 1
     materialName: 0
