@@ -8,6 +8,12 @@ public class headBob : MonoBehaviour {
 
 	float yVal, lerpVal;
 
+	public AudioSource playerSound;
+
+	public AudioClip step1, step2, step3, step4;
+
+	bool stepCanPlay = false;
+
 	// Use this for initialization
 	void Start () {
 		lerpVal = 1;
@@ -43,7 +49,41 @@ public class headBob : MonoBehaviour {
 		transform.localPosition = new Vector3(transform.localPosition.x, yVal, transform.localPosition.z);
 
 		lerpVal = Mathf.Clamp01(lerpVal);
-		Debug.Log(Mathf.Abs(Input.GetAxis("Vertical")));
+		//Debug.Log(Mathf.Abs(Input.GetAxis("Vertical")));
+
+		if(yVal == 0.66f && stepCanPlay){
+			playStepSound();
+			stepCanPlay = false;
+		}
+		if(yVal > 0.75f){
+			stepCanPlay = true;
+		}
+
+
 		
+	}
+
+	void playStepSound(){
+		int randNum = Random.Range(1,5);
+
+		if(randNum == 1){
+			playerSound.clip = step1;
+			playerSound.Play();
+		}
+		if(randNum == 2){
+			playerSound.clip = step2;
+			playerSound.Play();
+		}
+		if(randNum == 3){
+			playerSound.clip = step3;
+			playerSound.Play();
+		}
+		if(randNum == 4){
+			playerSound.clip = step4;
+			playerSound.Play();
+		}
+
+		Debug.Log(randNum);
+
 	}
 }
