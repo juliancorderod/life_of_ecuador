@@ -30,7 +30,7 @@ public class escToMenu : MonoBehaviour {
 			SceneManager.LoadScene ("_MENUSCREEN_v0");
 		}
 
-		Debug.Log(escTimer);
+//		Debug.Log(escTimer);
 
 	
 		
