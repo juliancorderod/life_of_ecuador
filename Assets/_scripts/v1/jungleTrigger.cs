@@ -6,6 +6,7 @@ public class jungleTrigger : MonoBehaviour {
 
 	public GameObject songScript;
 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -21,11 +22,13 @@ public class jungleTrigger : MonoBehaviour {
 	void OnTriggerEnter(){
 		songScript.GetComponent<songScript>().unMuteSong();
 		songScript.GetComponent<songScript>().motBlurOn();
+		headBob.inJungle = true;
 
 	}
 	void OnTriggerExit(){
 		songScript.GetComponent<songScript>().muteSong();
 		songScript.GetComponent<songScript>().motBlurOff();
+		headBob.inJungle = false;
 
 	}
 }

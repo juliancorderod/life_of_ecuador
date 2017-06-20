@@ -9,10 +9,19 @@ public class headBob : MonoBehaviour {
 	float yVal, lerpVal;
 
 	public AudioSource playerSound;
+	public AudioSource fxSound;
 
-	public AudioClip step1, step2, step3, step4;
+	public AudioClip step1, step2, step3, step4, jungleStep1, jungleStep2, jungleStep3, jungleStep4;
 
-	bool stepCanPlay = false;
+	public AudioClip jungleSwish1, jungleSwish2, jungleSwish3, jungleSwish4;
+
+	bool stepCanPlay, swishCanPlay = false;
+	float swishCanPlayReset = 0;
+
+	public static bool inJungle = false;
+
+	[Range (0, 100)]
+	public int swishProbability;
 
 	// Use this for initialization
 	void Start () {
@@ -23,14 +32,19 @@ public class headBob : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		fxSound.volume = Mathf.Clamp(fxSound.volume, 0, 0.5f);
 
 		if(!transform.parent.GetComponent<player>().isCrouching){
 			if(Mathf.Round(Input.GetAxis("Horizontal")) != 0 || Mathf.Round(Input.GetAxis("Vertical")) != 0){
 				
 				lerpVal -= Time.deltaTime * 5;
+				fxSound.volume += Time.deltaTime * 1.25f;
+
 
 			}else{
 				lerpVal += Time.deltaTime * 5;
+				fxSound.volume -= Time.deltaTime * 1.25f;
+				swishCanPlayReset = 5;
 			}
 		} else{
 			lerpVal += Time.deltaTime * 5;
@@ -40,7 +54,6 @@ public class headBob : MonoBehaviour {
 
 			yVal = (Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* (freq +5))/amplitude), 0.75f, lerpVal));
 		} else{
-
 		yVal = Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* freq)/amplitude), 0.75f, lerpVal);
 		}
 
@@ -59,31 +72,96 @@ public class headBob : MonoBehaviour {
 			stepCanPlay = true;
 		}
 
+		if(yVal == 0.66f && swishCanPlay){
+			playSwishSound();
+			swishCanPlay = false;
+			swishCanPlayReset = 0;
+			Debug.Log("yeah");
+		}
+		if(!swishCanPlay){
+			swishCanPlayReset += Time.deltaTime;
+			if(swishCanPlayReset >= 5){
+				swishCanPlay = true;
+			}
+				
+		}
+
+
+
 
 		
 	}
 
 	void playStepSound(){
-		int randNum = Random.Range(1,5);
 
-		if(randNum == 1){
-			playerSound.clip = step1;
-			playerSound.Play();
-		}
-		if(randNum == 2){
-			playerSound.clip = step2;
-			playerSound.Play();
-		}
-		if(randNum == 3){
-			playerSound.clip = step3;
-			playerSound.Play();
-		}
-		if(randNum == 4){
-			playerSound.clip = step4;
-			playerSound.Play();
-		}
+		if(!inJungle){
+			int randNum = Random.Range(1,5);
 
-		Debug.Log(randNum);
+			if(randNum == 1){
+				playerSound.clip = step1;
+				playerSound.Play();
+			}
+			if(randNum == 2){
+				playerSound.clip = step2;
+				playerSound.Play();
+			}
+			if(randNum == 3){
+				playerSound.clip = step3;
+				playerSound.Play();
+			}
+			if(randNum == 4){
+				playerSound.clip = step4;
+				playerSound.Play();
+			}
+		}else{
+			int randNum = Random.Range(1,5);
+
+			if(randNum == 1){
+				playerSound.clip = jungleStep1;
+				playerSound.Play();
+			}
+			if(randNum == 2){
+				playerSound.clip = jungleStep2;
+				playerSound.Play();
+			}
+			if(randNum == 3){
+				playerSound.clip = jungleStep3;
+				playerSound.Play();
+			}
+			if(randNum == 4){
+				playerSound.clip = jungleStep4;
+				playerSound.Play();
+			}
+
+
+		}
+	}
+
+	void playSwishSound(){
+		int randNum = Random.Range(0,100);
+		if(inJungle){
+			if (randNum <= swishProbability){
+				fxSound.Play();
+				int randNum2 = Random.Range(1,5);
+
+				if(randNum2 == 1){
+					fxSound.clip = jungleSwish1;
+					fxSound.Play();
+				}
+				if(randNum2 == 2){
+					fxSound.clip = jungleSwish2;
+					fxSound.Play();
+				}
+				if(randNum2 == 3){
+					fxSound.clip = jungleSwish3;
+					fxSound.Play();
+				}
+				if(randNum2 == 4){
+					fxSound.clip = jungleSwish4;
+					fxSound.Play();
+				}
+			}
+		}
 
 	}
 }
