@@ -40,7 +40,7 @@ public class player : MonoBehaviour
 	{
 		Cursor.lockState = CursorLockMode.Locked;
 
-		control.Move (transform.up * -Time.deltaTime * 10f);//gravity
+		control.Move (transform.up * -Time.deltaTime * 20f);//gravity
 
 		horizontal = Input.GetAxis ("Horizontal");
 		vertical = Input.GetAxis ("Vertical");
