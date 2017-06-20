@@ -121,6 +121,7 @@ public class player : MonoBehaviour
 				for (int i = 0; i < col.transform.childCount; i++)
 					col.transform.GetChild (i).gameObject.layer = 8;
 			}
+
 			col.layer = 8;
 			col = null;
 		}
