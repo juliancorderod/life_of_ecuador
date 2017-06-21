@@ -75,7 +75,7 @@ public class AntController : MonoBehaviour {
 				ResetLegs (_body1);
 		}
 
-		if (transform.parent == null)
+		if (transform.parent == null || transform.parent.name != "player")
 			held = false;
 		else
 			held = true;
