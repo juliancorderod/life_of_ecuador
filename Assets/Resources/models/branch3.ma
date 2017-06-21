@@ -1,6 +1,6 @@
 //Maya ASCII 2016 scene
 //Name: branch3.ma
-//Last modified: Wed, Jun 21, 2017 10:13:52 AM
+//Last modified: Wed, Jun 21, 2017 12:06:45 PM
 //Codeset: UTF-8
 requires maya "2016";
 requires "stereoCamera" "10.0";
@@ -15,13 +15,13 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "18A92502-4BB5-7B8D-1AF1-CCA43F32C40F";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -15.244933510599788 -3.4595889245352236 4.1033872173221404 ;
-	setAttr ".r" -type "double3" -189.33835273034234 -614.19999999988715 0 ;
+	setAttr ".t" -type "double3" -5.1699710141325079 0.43654014350053716 5.8588925220671149 ;
+	setAttr ".r" -type "double3" -9.9383527302790693 -398.999999999853 1.534728435454115e-15 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "FBAA5FFF-48B6-8B6E-1606-B9848EB58FFA";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 15.707807614678742;
+	setAttr ".coi" 7.8064980432360587;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
