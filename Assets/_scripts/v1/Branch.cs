@@ -21,11 +21,34 @@ public class Branch : MonoBehaviour {
 	[Range(0f,1f)]
 	public float _leaf_alpha;
 
+	public Mesh branch1, branch2, branch3;
+
 	// Use this for initialization
 	void Start () {
 		_num_leaves = (int)(_percent * _num_leaves);
 
+
+
+		int randNum = Random.Range(1,4);
+
+		if(randNum == 1){
+			GetComponent<MeshFilter>().sharedMesh = branch1;
+			GetComponent<MeshCollider>().sharedMesh = branch1;
+
+		}
+		if(randNum == 2){
+			GetComponent<MeshFilter>().sharedMesh = branch2;
+			GetComponent<MeshCollider>().sharedMesh = branch2;
+
+		}
+		if(randNum == 3){
+			GetComponent<MeshFilter>().sharedMesh = branch2;
+			GetComponent<MeshCollider>().sharedMesh = branch2;
+
+		}
+
 		SpawnLeaves ();
+		
 	}
 	
 	// Update is called once per frame

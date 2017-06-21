@@ -13,6 +13,7 @@ public class thing : MonoBehaviour {
 	private float _cloneAlpha;
 	private bool _cloneActive = false;
 
+	private bool _cloneMesh = false;
 	// Use this for initialization
 	void Start () {
 		_scale = transform.localScale;
@@ -24,11 +25,16 @@ public class thing : MonoBehaviour {
 		_clone.transform.localScale = _scale*1.00001f;
 		_clone.transform.parent = transform;
 
-		_clone.GetComponent<MeshFilter> ().sharedMesh = GetComponent<MeshFilter> ().sharedMesh;
-
 		_cloneAlpha = _clone.GetComponent<MeshRenderer> ().material.color.a;
 
 		SetClone ();
+	}
+
+	void Update(){
+		if(!_cloneMesh){
+			_clone.GetComponent<MeshFilter> ().sharedMesh = GetComponent<MeshFilter> ().sharedMesh;
+			_cloneMesh = true;
+		}
 	}
 
 	public void SetCloneActive(bool _b){
@@ -47,5 +53,6 @@ public class thing : MonoBehaviour {
 			_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
 			_clone.SetActive (false);
 		}
+
 	}
 }
