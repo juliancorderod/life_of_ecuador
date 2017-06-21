@@ -83,7 +83,10 @@ public class AntController : MonoBehaviour {
 
 		grounded = Physics.Raycast (_groundRay, out _groundHit, _groundDistance);
 
+
+
 		if (grounded) {
+			Debug.Log (_groundHit.collider.name);
 			//_newPos = _groundHit.point + _groundHit.normal*_groundDistance/2f;
 			//transform.up = _groundHit.normal;
 
