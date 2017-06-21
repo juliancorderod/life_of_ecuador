@@ -62,7 +62,7 @@ public class Spawn : MonoBehaviour {
 									_perlin * _slope_y + min_branch_scale_y,
 									_perlin * _slope_xz + min_branch_scale_x_z);
 
-			_new_branch = Instantiate (_branch, _pos, _branch.transform.rotation) as GameObject;
+			_new_branch = Instantiate (_branch, _pos, _branch.transform.rotation, transform) as GameObject;
 			_new_branch.transform.LookAt (transform.position);
 
 			if(_radius == _min_radius)
