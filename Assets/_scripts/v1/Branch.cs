@@ -42,8 +42,8 @@ public class Branch : MonoBehaviour {
 
 		}
 		if(randNum == 3){
-			GetComponent<MeshFilter>().sharedMesh = branch2;
-			GetComponent<MeshCollider>().sharedMesh = branch2;
+			GetComponent<MeshFilter>().sharedMesh = branch3;
+			GetComponent<MeshCollider>().sharedMesh = branch3;
 
 		}
 
