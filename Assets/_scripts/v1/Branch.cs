@@ -42,8 +42,8 @@ public class Branch : MonoBehaviour {
 
 		}
 		if(randNum == 3){
-			GetComponent<MeshFilter>().sharedMesh = branch2;
-			GetComponent<MeshCollider>().sharedMesh = branch2;
+			GetComponent<MeshFilter>().sharedMesh = branch3;
+			GetComponent<MeshCollider>().sharedMesh = branch3;
 
 		}
 
@@ -78,4 +78,5 @@ public class Branch : MonoBehaviour {
 			_new_Leaf.GetComponent<SpriteRenderer> ().color = new Color ((187f / 255f), 1f, Random.Range (140, 250) / 255f, _leaf_alpha);
 		}
 	}
+		
 }
