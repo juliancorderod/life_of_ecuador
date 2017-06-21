@@ -16,7 +16,7 @@ public class centerTrigger : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.4f);
+		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.25f);
 
 		if(playHum){
 			GetComponent<AudioSource>().volume += Time.deltaTime * 1.25f;
@@ -29,19 +29,23 @@ public class centerTrigger : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(){
+	void OnTriggerEnter(Collider col){
+		if(col.gameObject.name == "player"){
 		songScript.GetComponent<songScript>().muteSong();
 		songScript.GetComponent<songScript>().motBlurOff();
 		headBob.inJungle = false;
 		playHum = true;
+		}
 
 
 	}
-	void OnTriggerExit(){
+	void OnTriggerExit(Collider col){
+		if(col.gameObject.name == "player"){
 		songScript.GetComponent<songScript>().unMuteSong();
 		songScript.GetComponent<songScript>().motBlurOn();
 		headBob.inJungle = true;
 		playHum = false;
+		}
 
 	}
 }

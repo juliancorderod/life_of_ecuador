@@ -27,7 +27,7 @@ public class escToMenu : MonoBehaviour {
 
 
 		if(escTimer >3f){
-			SceneManager.LoadScene ("_MENUSCREEN_v0");
+			SceneManager.LoadScene ("_MENUSCREEN_v1");
 		}
 
 //		Debug.Log(escTimer);
