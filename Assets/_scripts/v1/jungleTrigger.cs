@@ -7,6 +7,8 @@ public class jungleTrigger : MonoBehaviour {
 	public GameObject songScript;
 
 
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -15,6 +17,8 @@ public class jungleTrigger : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
 
 		
 	}
