@@ -17,16 +17,23 @@ public class AntController : MonoBehaviour {
 	public bool hasObject;
 	private bool grounded;
 
-	private float _groundDistance = .1f;
+	private float _groundDistance = .25f;
 	private float _turnDistance = 2f;
 
 	public float _moveSpeed;
 	public float _turnSpeed;
 
+	private Vector3 _newPos;
+	private float _turn;
+	private Vector3 _newRot;
+
+	private float _lerpSpeed = 3f;
+
 	// Use this for initialization
 	void Start () {
 		_moving = true;
 		_startedLerp = false;
+		transform.eulerAngles = Vector3.zero;
 	}
 	
 	// Update is called once per frame
@@ -69,7 +76,7 @@ public class AntController : MonoBehaviour {
 	}
 
 	void Move(bool _hasObject){
-		Ray _groundRay = new Ray (transform.position + Vector3.down / 10f, Vector3.down);
+		Ray _groundRay = new Ray (transform.position - transform.up / 10f, -transform.up);
 		RaycastHit _groundHit = new RaycastHit ();
 
 		Debug.DrawRay (_groundRay.origin, _groundRay.direction * _groundDistance, Color.red);
@@ -77,6 +84,9 @@ public class AntController : MonoBehaviour {
 		grounded = Physics.Raycast (_groundRay, out _groundHit, _groundDistance);
 
 		if (grounded) {
+			_newPos = _groundHit.point + _groundHit.normal*_groundDistance/2f;
+			transform.up = _groundHit.normal;
+
 			Ray _forwardRay = new Ray (transform.position + transform.forward, transform.forward);
 			RaycastHit _forwardHit = new RaycastHit ();
 			Ray _objectRay = new Ray (transform.position + transform.forward, transform.forward);
@@ -87,11 +97,17 @@ public class AntController : MonoBehaviour {
 			if (Physics.Raycast (_objectRay, out _objectHit, .05f, 1 << 8) && _objectHit.transform.tag != "ant")
 				AssignObject (_objectHit.collider.gameObject);
 
-			transform.Rotate (transform.up, Time.deltaTime * _turnSpeed * (4f * Mathf.Pow(_turnDistance / _forwardHit.distance, 2f)), Space.World);
+			_turn = Time.deltaTime * _turnSpeed * (16f * Mathf.Pow(_turnDistance / _forwardHit.distance, 2f));
+
+
 			transform.position += transform.forward * Time.deltaTime * _moveSpeed;
 
+			_newRot = transform.eulerAngles + Vector3.up * _turn;
+
+			transform.position = Vector3.Lerp (transform.position, _newPos, Time.deltaTime * _lerpSpeed * 5f);
+			transform.eulerAngles = Vector3.Lerp (transform.eulerAngles, _newRot, Time.deltaTime * _lerpSpeed * .1f);
 		} else {
-			transform.position += Vector3.down * Time.deltaTime * 1f;
+			transform.position -= transform.up * Time.deltaTime * 1f;
 		}
 	}
 
