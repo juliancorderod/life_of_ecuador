@@ -23,16 +23,20 @@ public class jungleTrigger : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter(){
+	void OnTriggerEnter(Collider col){
+		if(col.gameObject.name == "player"){
 		songScript.GetComponent<songScript>().unMuteSong();
 		songScript.GetComponent<songScript>().motBlurOn();
 		headBob.inJungle = true;
+		}
 
 	}
-	void OnTriggerExit(){
+	void OnTriggerExit(Collider col){
+		if(col.gameObject.name == "player"){
 		songScript.GetComponent<songScript>().muteSong();
 		songScript.GetComponent<songScript>().motBlurOff();
 		headBob.inJungle = false;
+		}
 
 	}
 }

@@ -28,11 +28,11 @@ public class headBob : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		lerpVal = 1;
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 
 		fxSound.volume = Mathf.Clamp(fxSound.volume, 0, 0.5f);
 
@@ -64,9 +64,17 @@ public class headBob : MonoBehaviour {
 		transform.localPosition = new Vector3(transform.localPosition.x, yVal, transform.localPosition.z);
 
 		lerpVal = Mathf.Clamp01(lerpVal);
-		//Debug.Log(Mathf.Abs(Input.GetAxis("Vertical")));
 
+		if(transform.parent.GetComponent<player>().isCrouching){//check for crouch!
+			yValWithCrouch  = 0;
+		}else{
+			yValWithCrouch  = 0.75f;
+			yVal = Mathf.Clamp(yVal,clamp,100f);
+		}
+
+		Debug.Log(yVal);
 		if(yVal == 0.66f && stepCanPlay){
+			Debug.Log("yeah");
 			playStepSound();
 			stepCanPlay = false;
 		}
@@ -89,12 +97,7 @@ public class headBob : MonoBehaviour {
 		}
 
 
-		if(transform.parent.GetComponent<player>().isCrouching){//check for crouch!
-			yValWithCrouch  = 0;
-		}else{
-			yValWithCrouch  = 0.75f;
-			yVal = Mathf.Clamp(yVal,clamp,100f);
-		}
+
 
 		
 	}
