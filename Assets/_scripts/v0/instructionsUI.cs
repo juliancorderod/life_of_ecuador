@@ -20,7 +20,7 @@ public class instructionsUI : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Space)){
 			if (_ind >= tut_items.Length)
-				SceneManager.LoadScene ("_MAIN_SCENE_v0");
+				SceneManager.LoadScene ("_MAIN_SCENE_v1");
 			else {
 				++_ind;
 				Switch (_ind);
