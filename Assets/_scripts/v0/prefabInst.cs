@@ -22,7 +22,7 @@ public class prefabInst : MonoBehaviour {
 
 
 		for(int i = 0; i < _prefabs.Length; i++){
-			newPrefab = Instantiate (_prefabs [i], (Random.insideUnitSphere*1.25f) + (new Vector3 (0f, 4f, 0f)), Random.rotation) as GameObject;
+			newPrefab = Instantiate (_prefabs [i], (Random.insideUnitSphere*1.25f) + (new Vector3 (0f, 4f, 0f)), Random.rotation, transform) as GameObject;
 			newPrefab.transform.localScale *= 0.2f;
 
 
