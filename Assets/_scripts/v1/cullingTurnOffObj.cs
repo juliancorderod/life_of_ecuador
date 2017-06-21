@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class cullingTurnOffObj : MonoBehaviour {
 
-	List<GameObject> allObjectsWithTag = new List<GameObject>();
 
 	GameObject[] objectWithTag;
 	GameObject[] antsObj;
@@ -33,20 +32,27 @@ public class cullingTurnOffObj : MonoBehaviour {
 			objectWithTag = GameObject.FindGameObjectsWithTag ("memory");
 			antsObj = GameObject.FindGameObjectsWithTag ("ant");
 
-			allObjectsWithTag.AddRange (objectWithTag);
-			allObjectsWithTag.AddRange (antsObj);
 
 			addStuff = false;
 		}
 
 
-		foreach(GameObject objectWithTag in allObjectsWithTag){
+		for(int i = 0; i < objectWithTag.Length; i++){
 
-			if(Vector3.Distance(objectWithTag.transform.position, player.transform.position) >= distance){
-				objectWithTag.SetActive(false);
+			if(Vector3.Distance(objectWithTag[i].transform.position, player.transform.position) >= distance){
+				objectWithTag[i].SetActive(false);
 			} else{
-				objectWithTag.SetActive(true);
+				objectWithTag[i].SetActive(true);
+			}
 
+		}
+
+		for(int i = 0; i < antsObj.Length; i++){
+
+			if(Vector3.Distance(antsObj[i].transform.position, player.transform.position) >= distance){
+				antsObj[i].SetActive(false);
+			} else{
+				antsObj[i].SetActive(true);
 			}
 
 		}
