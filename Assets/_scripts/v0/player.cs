@@ -138,7 +138,7 @@ public class player : MonoBehaviour
 					if (!lookatObject) {
 						Debug.Log ("hit");
 						col.transform.parent = Camera.main.transform;
-						col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1.3f);
+						col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
 						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);
@@ -175,11 +175,13 @@ public class player : MonoBehaviour
 		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey (KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
 			lookatObject = true;
 			object_camera.orthographic = true;
-			object_camera.orthographicSize = col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude / 2f;
+
+			object_camera.orthographicSize = Mathf.Sqrt(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude));
 		} else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 
-			if(lookatObject)
-				col.transform.localPosition = new Vector3 (0.5f, -0.7f, 1f);
+			if (lookatObject) {
+				col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
+			}
 			
 			lookatObject = false;
 			object_camera.orthographic = false;
@@ -197,7 +199,7 @@ public class player : MonoBehaviour
 			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 
-			col.transform.localPosition = new Vector3 (0f, 0f, 8f);
+			col.transform.localPosition = new Vector3 (0f, 0f, 24f);
 
 			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
 			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
