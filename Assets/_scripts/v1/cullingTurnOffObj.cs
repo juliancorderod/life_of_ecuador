@@ -14,19 +14,31 @@ public class cullingTurnOffObj : MonoBehaviour {
 
 	public float distance;
 
+	bool addStuff = true;
+
 	// Use this for initialization
 	void Start () {
 
-		objectWithTag = GameObject.FindGameObjectsWithTag ("memory");
-		antsObj = GameObject.FindGameObjectsWithTag ("ant");
-
-		allObjectsWithTag.AddRange (objectWithTag);
-		allObjectsWithTag.AddRange (antsObj);
+//		objectWithTag = GameObject.FindGameObjectsWithTag ("memory");
+//		antsObj = GameObject.FindGameObjectsWithTag ("ant");
+//
+//		allObjectsWithTag.AddRange (objectWithTag);
+//		allObjectsWithTag.AddRange (antsObj);
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(addStuff){
+			objectWithTag = GameObject.FindGameObjectsWithTag ("memory");
+			antsObj = GameObject.FindGameObjectsWithTag ("ant");
+
+			allObjectsWithTag.AddRange (objectWithTag);
+			allObjectsWithTag.AddRange (antsObj);
+
+			addStuff = false;
+		}
+
 
 		foreach(GameObject objectWithTag in allObjectsWithTag){
 
