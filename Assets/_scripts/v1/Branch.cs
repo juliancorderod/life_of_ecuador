@@ -68,7 +68,7 @@ public class Branch : MonoBehaviour {
 			_pos = Mathf.Clamp (_pos + .3f, 0f, 1f);
 			_radius = _min_dist + (_max_dist - _min_dist) * _pos * _pos;
 
-			Debug.Log (GetComponent<MeshFilter> ().mesh.bounds.size);
+			//Debug.Log (GetComponent<MeshFilter> ().mesh.bounds.size);
 			_position = transform.position + GetComponent<MeshFilter> ().mesh.bounds.size.x * transform.localScale.x * -transform.right * _pos + Random.insideUnitSphere * _radius - transform.up;
 
 			_new_Leaf = Instantiate (_leaf, _position, _leaf.transform.rotation, transform) as GameObject;
