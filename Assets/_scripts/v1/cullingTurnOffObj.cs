@@ -8,15 +8,20 @@ public class cullingTurnOffObj : MonoBehaviour {
 	List<GameObject> allObjectsWithTag = new List<GameObject>();
 
 	GameObject[] objectWithTag;
+	GameObject[] antsObj;
 
 	public GameObject player;
+
+	public float distance;
 
 	// Use this for initialization
 	void Start () {
 
 		objectWithTag = GameObject.FindGameObjectsWithTag ("memory");
+		antsObj = GameObject.FindGameObjectsWithTag ("ant");
 
 		allObjectsWithTag.AddRange (objectWithTag);
+		allObjectsWithTag.AddRange (antsObj);
 	
 	}
 	
@@ -25,7 +30,7 @@ public class cullingTurnOffObj : MonoBehaviour {
 
 		foreach(GameObject objectWithTag in allObjectsWithTag){
 
-			if(Vector3.Distance(objectWithTag.transform.position, player.transform.position) >= 30f){
+			if(Vector3.Distance(objectWithTag.transform.position, player.transform.position) >= distance){
 				objectWithTag.SetActive(false);
 			} else{
 				objectWithTag.SetActive(true);
@@ -33,6 +38,7 @@ public class cullingTurnOffObj : MonoBehaviour {
 			}
 
 		}
+			
 
 	}
 }
