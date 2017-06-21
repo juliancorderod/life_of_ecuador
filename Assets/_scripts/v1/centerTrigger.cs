@@ -16,6 +16,7 @@ public class centerTrigger : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.4f);
 
 		if(playHum){
 			GetComponent<AudioSource>().volume += Time.deltaTime * 1.25f;
