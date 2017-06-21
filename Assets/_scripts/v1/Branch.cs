@@ -18,6 +18,9 @@ public class Branch : MonoBehaviour {
 
 	public Sprite[] _pos_leaves;
 
+	[Range(0f,1f)]
+	public float _leaf_alpha;
+
 	// Use this for initialization
 	void Start () {
 		_num_leaves = (int)(_percent * _num_leaves);
@@ -49,6 +52,7 @@ public class Branch : MonoBehaviour {
 			_new_Leaf.transform.localScale *= Random.Range (1f, _leaf_scale);
 			_new_Leaf.transform.eulerAngles = Random.insideUnitSphere*360f;
 			_new_Leaf.GetComponent<SpriteRenderer> ().sprite = _pos_leaves [Random.Range (0, _pos_leaves.Length)];
+			_new_Leaf.GetComponent<SpriteRenderer> ().color = new Color ((187f / 255f), 1f, Random.Range (140, 250) / 255f, _leaf_alpha);
 		}
 	}
 }
