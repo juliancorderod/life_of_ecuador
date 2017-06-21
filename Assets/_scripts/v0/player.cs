@@ -203,6 +203,9 @@ public class player : MonoBehaviour
 
 			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
 			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
+			pointer.GetComponent<Image>().color = Color.clear;
+		}else{
+			pointer.GetComponent<Image>().color = Color.white;
 		}
 
 		if (carryingObject)
