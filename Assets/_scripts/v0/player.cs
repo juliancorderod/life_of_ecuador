@@ -59,7 +59,7 @@ public class player : MonoBehaviour
 			Camera.main.transform.eulerAngles = new Vector3 (upDownLook, transform.eulerAngles.y, 0);//cam rotation up down with mouse
 
 			//movement stuff
-			if (Input.GetKey (KeyCode.LeftShift)) {//if sprinting
+			if (Input.GetKey (KeyCode.LeftShift) && !isCrouching) {//if sprinting
 				control.Move (transform.forward * Time.deltaTime * vertical * sprintSpeed);
 				control.Move (transform.right * Time.deltaTime * horizontal * sprintSpeed);
 			} else {

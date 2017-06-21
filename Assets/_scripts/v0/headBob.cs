@@ -6,7 +6,7 @@ public class headBob : MonoBehaviour {
 
 	public float amplitude, freq, clamp;
 
-	float yVal, lerpVal;
+	float yVal, lerpVal, yValWithCrouch;
 
 	public AudioSource playerSound;
 	public AudioSource fxSound;
@@ -22,6 +22,8 @@ public class headBob : MonoBehaviour {
 
 	[Range (0, 100)]
 	public int swishProbability;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -52,12 +54,12 @@ public class headBob : MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.LeftShift)){
 
-			yVal = (Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* (freq +5))/amplitude), 0.75f, lerpVal));
+			yVal = (Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* (freq +5))/amplitude), yValWithCrouch, lerpVal));
 		} else{
-		yVal = Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* freq)/amplitude), 0.75f, lerpVal);
+			yVal = Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* freq)/amplitude), yValWithCrouch, lerpVal);
 		}
 
-		yVal = Mathf.Clamp(yVal,clamp,100f);
+
 
 		transform.localPosition = new Vector3(transform.localPosition.x, yVal, transform.localPosition.z);
 
@@ -87,7 +89,12 @@ public class headBob : MonoBehaviour {
 		}
 
 
-
+		if(transform.parent.GetComponent<player>().isCrouching){//check for crouch!
+			yValWithCrouch  = 0;
+		}else{
+			yValWithCrouch  = 0.75f;
+			yVal = Mathf.Clamp(yVal,clamp,100f);
+		}
 
 		
 	}
