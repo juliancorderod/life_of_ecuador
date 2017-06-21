@@ -84,8 +84,8 @@ public class AntController : MonoBehaviour {
 		grounded = Physics.Raycast (_groundRay, out _groundHit, _groundDistance);
 
 		if (grounded) {
-			_newPos = _groundHit.point + _groundHit.normal*_groundDistance/2f;
-			transform.up = _groundHit.normal;
+			//_newPos = _groundHit.point + _groundHit.normal*_groundDistance/2f;
+			//transform.up = _groundHit.normal;
 
 			Ray _forwardRay = new Ray (transform.position + transform.forward, transform.forward);
 			RaycastHit _forwardHit = new RaycastHit ();
@@ -97,17 +97,17 @@ public class AntController : MonoBehaviour {
 			if (Physics.Raycast (_objectRay, out _objectHit, .05f, 1 << 8) && _objectHit.transform.tag != "ant")
 				AssignObject (_objectHit.collider.gameObject);
 
-			_turn = Time.deltaTime * _turnSpeed * (16f * Mathf.Pow(_turnDistance / _forwardHit.distance, 2f));
+			transform.Rotate(transform.up, Time.deltaTime * _turnSpeed * (4f * Mathf.Pow(_turnDistance / _forwardHit.distance, 2f)), Space.World);
 
 
 			transform.position += transform.forward * Time.deltaTime * _moveSpeed;
 
-			_newRot = transform.eulerAngles + Vector3.up * _turn;
+			//_newRot = transform.eulerAngles + Vector3.up * _turn;
 
-			transform.position = Vector3.Lerp (transform.position, _newPos, Time.deltaTime * _lerpSpeed * 5f);
-			transform.eulerAngles = Vector3.Lerp (transform.eulerAngles, _newRot, Time.deltaTime * _lerpSpeed * .1f);
+			//transform.position = Vector3.Lerp (transform.position, _newPos, Time.deltaTime * _lerpSpeed * 5f);
+			//transform.eulerAngles = Vector3.Lerp (transform.eulerAngles, _newRot, Time.deltaTime * _lerpSpeed * .1f);
 		} else {
-			transform.position -= transform.up * Time.deltaTime * 1f;
+			transform.position -= Vector3.up * Time.deltaTime * 1f;
 		}
 	}
 
