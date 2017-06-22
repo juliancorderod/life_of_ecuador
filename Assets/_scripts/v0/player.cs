@@ -12,7 +12,7 @@ public class player : MonoBehaviour
 	[Range (40f, 100f)]
 	public float rotationVal;
 	public float playerSpeed, sprintSpeed, crouchSpeed;
-	float horizontal, vertical, upDownLook, upDownLookObj, leftRightLook, leftRightLookObj;
+	float vertical, upDownLook, upDownLookObj, leftRightLook, leftRightLookObj, rotating;
 	public bool isCrouching = false;
 
 
@@ -32,6 +32,7 @@ public class player : MonoBehaviour
 	{
 
 		control = GetComponent<CharacterController> ();
+		rotating = -1f;
 
 	}
 	
@@ -42,7 +43,6 @@ public class player : MonoBehaviour
 
 		control.Move (transform.up * -Time.deltaTime * 20f);//gravity
 
-		horizontal = Input.GetAxis ("Horizontal");
 		vertical = Input.GetAxis ("Vertical");
 		if (!lookatObject) {//this is so camera doesnt jump when you stop looking at objects
 			upDownLook -= Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
@@ -59,16 +59,13 @@ public class player : MonoBehaviour
 			Camera.main.transform.eulerAngles = new Vector3 (upDownLook, transform.eulerAngles.y, 0);//cam rotation up down with mouse
 
 			//movement stuff
-			if (Input.GetKey (KeyCode.LeftShift) && !isCrouching) {//if sprinting
-				control.Move (transform.forward * Time.deltaTime * vertical * sprintSpeed);
-				control.Move (transform.right * Time.deltaTime * horizontal * sprintSpeed);
+			if (Input.GetKey (KeyCode.V) && !isCrouching) {//if sprinting
+				control.Move (transform.forward * Time.deltaTime * sprintSpeed);
 			} else {
 				if (isCrouching) {//if crouching move slower
 					control.Move (transform.forward * Time.deltaTime * vertical * crouchSpeed);
-					control.Move (transform.right * Time.deltaTime * horizontal * crouchSpeed);
 				} else {//normal
 					control.Move (transform.forward * Time.deltaTime * vertical * playerSpeed);
-					control.Move (transform.right * Time.deltaTime * horizontal * playerSpeed);
 				}
 			}
 
@@ -104,7 +101,7 @@ public class player : MonoBehaviour
 	{
 		//this creates raycast in front of player used to grab objects
 		Ray playerRay = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
-		Physics.Raycast (playerRay, out hit, 3, layerMask);
+		Physics.Raycast (playerRay, out hit, 10, layerMask);
 
 		if (Input.GetMouseButtonDown (0) && carryingObject) {//drop object
 			Debug.Log ("drop");
@@ -172,22 +169,21 @@ public class player : MonoBehaviour
 			col = null;
 
 		}
-		if (Input.GetMouseButton (1) && carryingObject || Input.GetKey (KeyCode.LeftControl) && carryingObject) {//if pressed ctrl or right mouse while carrying object, look at it
-			lookatObject = true;
-			object_camera.orthographic = true;
 
-			object_camera.orthographicSize = Mathf.Sqrt(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude));
-		} else if (carryingObject) {//if not holding ctrl or right mouse stop looking
-
+		if (Input.GetKeyDown (KeyCode.R) && carryingObject) {
+			if (lookatObject)
+				lookatObject = false;
+			else
+				lookatObject = true;
+		}
+		else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 			if (lookatObject) {
+				col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow (col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1 / 8f) / 3f, 1f);
+			} else {
+				object_camera.orthographic = false;
+				col.gameObject.GetComponent<thing> ().SetCloneActive (false);
 				col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
 			}
-			
-			lookatObject = false;
-			object_camera.orthographic = false;
-
-
-			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 		
 
 		}
@@ -195,6 +191,9 @@ public class player : MonoBehaviour
 
 		if (lookatObject) {//look at object
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
+
+			object_camera.orthographic = true;
+			object_camera.orthographicSize = Mathf.Sqrt (col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude));
 
 			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;

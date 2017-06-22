@@ -52,7 +52,7 @@ public class headBob : MonoBehaviour {
 			lerpVal += Time.deltaTime * 5;
 		}
 
-		if(Input.GetKey(KeyCode.LeftShift)){
+		if(Input.GetKey(KeyCode.V)){
 
 			yVal = (Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* (freq +5))/amplitude), yValWithCrouch, lerpVal));
 		} else{
