@@ -16,6 +16,21 @@ ModelImporter:
     100016: transform2
     100018: transform3
     100020: transform4
+    100022: body
+    100024: leftElbow
+    100026: leftEye
+    100028: leftFoot
+    100030: leftHand
+    100032: leftKnee
+    100034: leftPelvis
+    100036: neck
+    100038: pelvis
+    100040: rightElbow
+    100042: rightEye
+    100044: rightFoot
+    100046: rightHand
+    100048: rightKnee
+    100050: rightPelvis
     400000: back
     400002: pCube1
     400004: pCube2
@@ -27,10 +42,26 @@ ModelImporter:
     400016: transform2
     400018: transform3
     400020: transform4
+    400022: body
+    400024: leftElbow
+    400026: leftEye
+    400028: leftFoot
+    400030: leftHand
+    400032: leftKnee
+    400034: leftPelvis
+    400036: neck
+    400038: pelvis
+    400040: rightElbow
+    400042: rightEye
+    400044: rightFoot
+    400046: rightHand
+    400048: rightKnee
+    400050: rightPelvis
     2300000: pCylinder2
     3300000: pCylinder2
     4300000: pCylinder2
     9500000: //RootNode
+    13700000: pCylinder2
   materials:
     importMaterials: 1
     materialName: 0
