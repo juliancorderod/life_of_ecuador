@@ -24,7 +24,7 @@ public class AntController : MonoBehaviour {
 	private bool grounded;
 	private bool held;
 
-	private float _groundDistance = .25f;
+	private float _groundDistance = .05f;
 	private float _turnDistance = 2f;
 
 	public float _moveSpeed;
@@ -112,7 +112,7 @@ public class AntController : MonoBehaviour {
 				//Debug.Log (_groundHit.collider.name);
 				//transform.up = _groundHit.normal;
 				_timeDrop += Time.deltaTime;
-				_newPos = _groundHit.point + transform.up;
+				_newPos = _groundHit.point + transform.up*_groundDistance;
 
 				Ray _forwardRay = new Ray (transform.position + transform.forward, transform.forward);
 				RaycastHit _forwardHit = new RaycastHit ();
