@@ -5,7 +5,7 @@ using UnityEngine;
 public class jointScript : MonoBehaviour {
 
 	private Vector3 initPos, dancePos;
-	public Vector3[] dancePosRange;
+	private Vector3[] dancePosRange;
 	float lerpVal;
 	public bool canDance, setDancePos;
 	public Transform jointParent;
