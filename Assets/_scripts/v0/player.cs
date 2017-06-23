@@ -27,6 +27,8 @@ public class player : MonoBehaviour
 
 	public Camera object_camera;
 
+
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -94,7 +96,10 @@ public class player : MonoBehaviour
 		InteractionFunction ();//for when you wanna pick objects
 
 		Debug.DrawRay (Camera.main.transform.position, Camera.main.transform.forward, Color.red);
-		//Debug.Log(col);
+
+
+
+
 	}
 
 	void InteractionFunction ()
@@ -102,6 +107,7 @@ public class player : MonoBehaviour
 		//this creates raycast in front of player used to grab objects
 		Ray playerRay = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
 		Physics.Raycast (playerRay, out hit, 10, layerMask);
+
 
 		if (Input.GetMouseButtonDown (0) && carryingObject) {//drop object
 			Debug.Log ("drop");
@@ -118,6 +124,7 @@ public class player : MonoBehaviour
 				for (int i = 0; i < col.transform.childCount; i++)
 					col.transform.GetChild (i).gameObject.layer = 8;
 			}
+
 
 			col.layer = 8;
 			col = null;
@@ -151,6 +158,8 @@ public class player : MonoBehaviour
 					}
 
 					col.gameObject.GetComponent<thing>().SetCloneActive(false);
+
+		
 				}
 			} 
 
@@ -211,6 +220,8 @@ public class player : MonoBehaviour
 			HeldObjectName = col.name;
 		else
 			HeldObjectName = "";
+
+
 	}
 		
 }
