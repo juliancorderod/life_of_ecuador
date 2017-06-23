@@ -74,7 +74,7 @@ public class headBob : MonoBehaviour {
 
 //		Debug.Log(yVal);
 		if(yVal == 0.66f && stepCanPlay){
-			Debug.Log("yeah");
+//			Debug.Log("yeah");
 			playStepSound();
 			stepCanPlay = false;
 		}
@@ -86,7 +86,7 @@ public class headBob : MonoBehaviour {
 			playSwishSound();
 			swishCanPlay = false;
 			swishCanPlayReset = 0;
-			Debug.Log("yeah");
+//			Debug.Log("yeah");
 		}
 		if(!swishCanPlay){
 			swishCanPlayReset += Time.deltaTime;
