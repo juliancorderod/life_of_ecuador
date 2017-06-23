@@ -72,7 +72,7 @@ public class headBob : MonoBehaviour {
 			yVal = Mathf.Clamp(yVal,clamp,100f);
 		}
 
-		Debug.Log(yVal);
+//		Debug.Log(yVal);
 		if(yVal == 0.66f && stepCanPlay){
 			Debug.Log("yeah");
 			playStepSound();
