@@ -6,13 +6,14 @@ public class jointScript : MonoBehaviour {
 
 	private Vector3 initPos, dancePos;
 	private Vector3[] dancePosRange;
-	float lerpVal;
+	float lerpVal, setPosTimer, lerpValDamp = 0f;
 	public bool canDance, setDancePos;
 	public Transform jointParent;
 
 	public GameObject playerScript;
 
 	bool playerHasUs = false;
+
 
 
 	int _lerp0 = 0;
@@ -35,14 +36,13 @@ public class jointScript : MonoBehaviour {
 		dancePosRange[7]= initPos;
 		dancePosRange[8]= initPos;
 		dancePosRange[9]= initPos;
-
-		lerpVal = 0f;
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log(dancePosRange[9]);
+		Debug.Log(lerpValDamp);
 
 	
 
@@ -51,10 +51,13 @@ public class jointScript : MonoBehaviour {
 			setDancePos = true;
 			playerHasUs = true;
 
+			setPosTimer += Time.deltaTime;
+
 			for(int i = 0; i < dancePosRange.Length; i++){
-				if(Vector3.Distance(transform.position,initPos) < i && Vector3.Distance(transform.position,initPos) > i-1){
+				if(setPosTimer < i  && setPosTimer > i-1 ){
 					dancePosRange[i] = transform.position;
 					Debug.Log("set" + i);
+
 				}
 			}
 		} 
@@ -63,6 +66,8 @@ public class jointScript : MonoBehaviour {
 		if(playerHasUs){
 			if(playerScript.GetComponent<player>().HeldObjectName != this.name){
 				canDance = true;
+				setPosTimer = 0f;
+				lerpValDamp = 0f;
 				playerHasUs = false;
 
 			}
@@ -83,7 +88,7 @@ public class jointScript : MonoBehaviour {
 
 
 		if(canDance){
-			float _speed = 10f;
+			float _speed = 5f;
 
 
 			lerpVal += Time.deltaTime*_speed;
@@ -112,10 +117,12 @@ public class jointScript : MonoBehaviour {
 			}
 				
 
+			lerpValDamp += Time.deltaTime * 0.00001f;
 
-
+			for(int i = 0; i < dancePosRange.Length; i++){
 		
-		
+				dancePosRange[i] = Vector3.Lerp(dancePosRange[i],initPos, lerpValDamp);
+			}
 		}
 
 
