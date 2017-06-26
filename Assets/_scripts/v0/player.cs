@@ -27,7 +27,8 @@ public class player : MonoBehaviour
 
 	public Camera object_camera;
 
-
+	private Vector3 _rotatePos;
+	private Vector3 _heldPos;
 
 	// Use this for initialization
 	void Start ()
@@ -35,7 +36,7 @@ public class player : MonoBehaviour
 
 		control = GetComponent<CharacterController> ();
 		rotating = -1f;
-
+		_rotatePos = new Vector3 (0f, 0f, 240f);
 	}
 	
 	// Update is called once per frame
@@ -97,16 +98,13 @@ public class player : MonoBehaviour
 
 		Debug.DrawRay (Camera.main.transform.position, Camera.main.transform.forward, Color.red);
 
-
-
-
 	}
 
 	void InteractionFunction ()
 	{
 		//this creates raycast in front of player used to grab objects
 		Ray playerRay = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
-		Physics.Raycast (playerRay, out hit, 10, layerMask);
+		Physics.Raycast (playerRay, out hit, 7, layerMask);
 
 
 		if (Input.GetMouseButtonDown (0) && carryingObject) {//drop object
@@ -114,8 +112,9 @@ public class player : MonoBehaviour
 			if(col.gameObject.GetComponent<Rigidbody>() == true){
 				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			}
+			col.transform.localPosition = _heldPos;
 			col.transform.parent = null;
-			col.transform.localPosition = Camera.main.transform.position +  (Camera.main.transform.forward * 2f);
+			//col.transform.localPosition = Camera.main.transform.position +  (Camera.main.transform.forward * 2f);
 			//control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			lookatObject = false;
@@ -142,8 +141,9 @@ public class player : MonoBehaviour
 					if (!lookatObject) {
 						Debug.Log ("hit");
 						col.transform.parent = Camera.main.transform;
-						col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
-						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
+						_heldPos = col.transform.localPosition;
+						//col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
+						//col.transform.localEulerAngles = new Vector3 (0, 0, 0);
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
@@ -187,11 +187,11 @@ public class player : MonoBehaviour
 		}
 		else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 			if (lookatObject) {
-				col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow (col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1 / 8f) / 3f, 1f);
+				col.transform.localPosition = _rotatePos;
 			} else {
 				object_camera.orthographic = false;
 				col.gameObject.GetComponent<thing> ().SetCloneActive (false);
-				col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
+				col.transform.localPosition = _heldPos;
 			}
 		
 
@@ -207,7 +207,7 @@ public class player : MonoBehaviour
 			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 
-			col.transform.localPosition = new Vector3 (0f, 0f, 24f);
+			col.transform.localPosition = _rotatePos;
 
 			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
 			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
