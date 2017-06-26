@@ -27,7 +27,8 @@ public class player : MonoBehaviour
 
 	public Camera object_camera;
 
-
+	private Vector3 _rotatePos;
+	private Vector3 _heldPos;
 
 	// Use this for initialization
 	void Start ()
@@ -115,7 +116,7 @@ public class player : MonoBehaviour
 				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			}
 			col.transform.parent = null;
-			col.transform.localPosition = Camera.main.transform.position +  (Camera.main.transform.forward * 2f);
+			//col.transform.localPosition = Camera.main.transform.position +  (Camera.main.transform.forward * 2f);
 			//control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			lookatObject = false;
@@ -142,8 +143,8 @@ public class player : MonoBehaviour
 					if (!lookatObject) {
 						Debug.Log ("hit");
 						col.transform.parent = Camera.main.transform;
-						col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
-						col.transform.localEulerAngles = new Vector3 (0, 0, 0);
+						//col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
+						//col.transform.localEulerAngles = new Vector3 (0, 0, 0);
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
