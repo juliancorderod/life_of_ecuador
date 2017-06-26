@@ -10,7 +10,7 @@ public class jointScript : MonoBehaviour {
 	public bool canDance, setDancePos;
 	public Transform jointParent;
 
-	public GameObject playerScript;
+	public GameObject playerScript, mainBody;
 
 	bool playerHasUs = false;
 
@@ -42,7 +42,7 @@ public class jointScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log(lerpValDamp);
+
 
 	
 
@@ -52,6 +52,19 @@ public class jointScript : MonoBehaviour {
 			playerHasUs = true;
 
 			setPosTimer += Time.deltaTime;
+		
+
+			float adjacentLine = Vector3.Distance(Camera.main.transform.position,initPos);
+			float angle = Vector3.Angle(initPos - Camera.main.transform.position, Camera.main.transform.forward) * Mathf.Deg2Rad;
+
+
+
+			float zVal = adjacentLine/Mathf.Cos(angle);
+
+
+			Debug.Log(angle);
+			transform.position = Camera.main.ScreenToWorldPoint(
+				new Vector3(Camera.main.pixelWidth/2  ,Camera.main.pixelHeight/2 ,zVal));
 
 			for(int i = 0; i < dancePosRange.Length; i++){
 				if(setPosTimer < i  && setPosTimer > i-1 ){
