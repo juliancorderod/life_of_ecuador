@@ -37,7 +37,7 @@ public class headBob : MonoBehaviour {
 		fxSound.volume = Mathf.Clamp(fxSound.volume, 0, 0.5f);
 
 		if(!transform.parent.GetComponent<player>().isCrouching){
-			if(Mathf.Round(Input.GetAxis("Horizontal")) != 0 || Mathf.Round(Input.GetAxis("Vertical")) != 0){
+			if(Mathf.Round(Input.GetAxis("Vertical")) != 0){
 				
 				lerpVal -= Time.deltaTime * 5;
 				fxSound.volume += Time.deltaTime * 1.25f;

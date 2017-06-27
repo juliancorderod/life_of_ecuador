@@ -51,7 +51,9 @@ public class player : MonoBehaviour
 			upDownLook -= Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
 			upDownLook = Mathf.Clamp (upDownLook, -80f, 80f);
 		}
+
 		leftRightLook = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
+
 
 
 
@@ -179,7 +181,7 @@ public class player : MonoBehaviour
 
 		}
 
-		if (Input.GetKeyDown (KeyCode.R) && carryingObject) {
+		if (Input.GetKeyDown (KeyCode.R) && carryingObject && col.tag != "joint") {
 			if (lookatObject)
 				lookatObject = false;
 			else
