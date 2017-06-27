@@ -16,14 +16,16 @@ public class domeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.4f);
+		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.35f);
 
 		if(playSongBG){
-			GetComponent<AudioSource>().volume += Time.deltaTime * 1.25f;
+			
+			GetComponent<AudioSource>().volume += Time.deltaTime * 0.05f;
 
 
 		}else{
-			GetComponent<AudioSource>().volume -= Time.deltaTime * 1.25f;
+			GetComponent<AudioSource>().volume -= Time.deltaTime * 0.75f;
+
 		}
 
 
@@ -32,19 +34,17 @@ public class domeScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.name == "player"){
-			songScript.GetComponent<songScript>().unMuteSong();
+			songScript.GetComponent<songScriptv2>().unMuteSong();
 			playSongBG = true;
-			//songScript.GetComponent<songScript>().motBlurOn();
-			//headBob.inJungle = true;
+
+		
 		}
 
 	}
 	void OnTriggerExit(Collider col){
 		if(col.gameObject.name == "player"){
-			songScript.GetComponent<songScript>().muteSong();
+			songScript.GetComponent<songScriptv2>().muteSong();
 			playSongBG = false;
-			//songScript.GetComponent<songScript>().motBlurOff();
-			//headBob.inJungle = false;
 		}
 
 	}
