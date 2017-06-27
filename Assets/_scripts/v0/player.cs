@@ -30,10 +30,12 @@ public class player : MonoBehaviour
 	private Vector3 _rotatePos;
 	private Vector3 _heldPos;
 
+	public GameObject dropSounds;
+
 	// Use this for initialization
 	void Start ()
 	{
-
+		
 		control = GetComponent<CharacterController> ();
 		rotating = -1f;
 		_rotatePos = new Vector3 (0f, 0f, 240f);
@@ -125,6 +127,10 @@ public class player : MonoBehaviour
 			if (col.transform.childCount > 0) {
 				for (int i = 0; i < col.transform.childCount; i++)
 					col.transform.GetChild (i).gameObject.layer = 8;
+			}
+
+			if(col.tag == "triangle"){
+				dropSounds.GetComponent<trianleScript>().playTriangleThump();
 			}
 
 
