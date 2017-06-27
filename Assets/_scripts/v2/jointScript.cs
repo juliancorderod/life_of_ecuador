@@ -10,11 +10,12 @@ public class jointScript : MonoBehaviour {
 	public bool canDance, setDancePos;
 	public Transform jointParent;
 
-	public GameObject playerScript, mainBody;
+	GameObject playerScript;
 
 	bool playerHasUs = false;
 
-
+	public AudioSource jointAudio;
+	float audioPitch;
 
 	int _lerp0 = 0;
 	int _lerp1 = 1;
@@ -31,8 +32,11 @@ public class jointScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		playerScript = GameObject.FindGameObjectWithTag("Player");
+
 		canDance = true;
 		_ind = 0;
+
 
 		initPos = transform.position;
 
@@ -89,6 +93,7 @@ public class jointScript : MonoBehaviour {
 			if (playerScript.GetComponent<player> ().HeldObjectName != this.name) {
 				canDance = true;
 				setPosTimer = 0f;
+				jointAudio.volume = 0;
 				playerHasUs = false;
 			} else {
 				if (setPosTimer == 0f)
@@ -101,18 +106,25 @@ public class jointScript : MonoBehaviour {
 					setPosTimer = 0f;
 
 					if(_dir == 1){
-						if (_ind >= dancePosRange.Length - 1)
+						if (_ind >= dancePosRange.Length - 1){
 							_ind = 0;
+							audioPitch = 0;
+						}
 						else
 							++_ind;
 					}
 					else{
-						if (_ind <= 0)
+						if (_ind <= 0){
 							_ind = dancePosRange.Length - 1;
+							audioPitch = 0;
+						}
 						else
 							--_ind;
 					}
 				}
+				jointAudio.volume = 1;
+				jointAudio.pitch = audioPitch /2;
+
 			}
 		}
 	
@@ -148,12 +160,17 @@ public class jointScript : MonoBehaviour {
 
 			if(lerpVal >= 1f){
 				if(_dir == 1){
-					if(_lerp1 >= dancePosRange.Length-1)
+					if(_lerp1 >= dancePosRange.Length-1){
 						_dir *= -1;
+
+					}
+
 				}
 				else{
-					if(_lerp0 <= 0)
+					if(_lerp0 <= 0){
 						_dir *= -1;
+					
+					}
 				}
 					
 				_lerp0 += _dir;
@@ -193,5 +210,8 @@ public class jointScript : MonoBehaviour {
 
 	void AdjustPos(int _pos){
 		dancePosRange[_pos] = (transform.position - initPos);
+		++audioPitch;
+
+
 	}
 }

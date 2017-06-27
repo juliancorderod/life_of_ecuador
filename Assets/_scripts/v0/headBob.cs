@@ -33,11 +33,13 @@ public class headBob : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		Debug.Log(yValWithCrouch);
+
 
 		fxSound.volume = Mathf.Clamp(fxSound.volume, 0, 0.5f);
 
 		if(!transform.parent.GetComponent<player>().isCrouching){
-			if(Mathf.Round(Input.GetAxis("Vertical")) != 0){
+			if(Mathf.Round(Input.GetAxis("Vertical")) != 0 || Input.GetKey(KeyCode.V)){
 				
 				lerpVal -= Time.deltaTime * 5;
 				fxSound.volume += Time.deltaTime * 1.25f;
@@ -54,7 +56,7 @@ public class headBob : MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.V)){
 
-			yVal = (Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* (freq +5))/amplitude), yValWithCrouch, lerpVal));
+			yVal = (Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* (freq +5f))/amplitude), yValWithCrouch, lerpVal));
 		} else{
 			yVal = Mathf.Lerp(0.75f +(Mathf.Sin(Time.time* freq)/amplitude), yValWithCrouch, lerpVal);
 		}
@@ -72,9 +74,9 @@ public class headBob : MonoBehaviour {
 			yVal = Mathf.Clamp(yVal,clamp,100f);
 		}
 
-//		Debug.Log(yVal);
+
 		if(yVal == 0.66f && stepCanPlay){
-//			Debug.Log("yeah");
+
 			playStepSound();
 			stepCanPlay = false;
 		}
@@ -86,7 +88,7 @@ public class headBob : MonoBehaviour {
 			playSwishSound();
 			swishCanPlay = false;
 			swishCanPlayReset = 0;
-//			Debug.Log("yeah");
+
 		}
 		if(!swishCanPlay){
 			swishCanPlayReset += Time.deltaTime;
