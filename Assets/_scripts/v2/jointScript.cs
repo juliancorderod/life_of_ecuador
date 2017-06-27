@@ -56,6 +56,7 @@ public class jointScript : MonoBehaviour {
 
 			float adjacentLine = Vector3.Distance(Camera.main.transform.position,initPos);
 			float angle = Vector3.Angle(initPos - Camera.main.transform.position, Camera.main.transform.forward) * Mathf.Deg2Rad;
+			angle = Mathf.Clamp (angle, 0f, Mathf.PI/4f);
 
 
 
