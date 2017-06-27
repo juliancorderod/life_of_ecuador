@@ -15,9 +15,13 @@ public class songScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
+
 		if(mute){
 			GetComponent<AudioSource>().volume -= Time.deltaTime * 1.25f;
+
 		}else{
+			
 			GetComponent<AudioSource>().volume += Time.deltaTime * 0.25f;
 		}
 		
@@ -29,7 +33,7 @@ public class songScript : MonoBehaviour {
 	}
 
 	public void unMuteSong(){
-
+		
 		mute = false;
 	}
 
