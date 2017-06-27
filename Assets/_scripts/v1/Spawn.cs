@@ -13,7 +13,7 @@ public class Spawn : MonoBehaviour {
 	private float min_branch_scale_x_z = .5f;
 	private float max_branch_scale_x_z = 5f;
 
-	private float min_branch_scale_y = .5f;
+	private float min_branch_scale_y = 1.5f;
 	private float max_branch_scale_y = 3f;
 
 	public float _min_radius;
