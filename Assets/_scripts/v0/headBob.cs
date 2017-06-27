@@ -33,7 +33,7 @@ public class headBob : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log(yValWithCrouch);
+//		Debug.Log(yValWithCrouch);
 
 
 		fxSound.volume = Mathf.Clamp(fxSound.volume, 0, 0.5f);
