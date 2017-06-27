@@ -5,7 +5,7 @@ using UnityEngine;
 public class jointScript : MonoBehaviour {
 
 	private Vector3 initPos, dancePos;
-	private Vector3[] dancePosRange;
+	public Vector3[] dancePosRange;
 	float lerpVal, setPosTimer, lerpValDamp = 0f;
 	public bool canDance, setDancePos;
 	public Transform jointParent;
@@ -20,70 +20,99 @@ public class jointScript : MonoBehaviour {
 	int _lerp1 = 1;
 	int _dir = 1;
 
+
+	public GameObject[] ADJACENCIES;
+	public Vector3[] adjacencyRange;
+	private float AFFECTED_CONST = 2f;
+
+	public Vector3[] _move;
+	private int _ind;
+	private bool _posSet;
+
 	// Use this for initialization
 	void Start () {
+		canDance = true;
+		_ind = 0;
 
 		initPos = transform.position;
 
 		dancePosRange = new Vector3[10];
-		dancePosRange[0]= initPos;
-		dancePosRange[1]= initPos;
-		dancePosRange[2]= initPos;
-		dancePosRange[3]= initPos;
-		dancePosRange[4]= initPos;
-		dancePosRange[5]= initPos;
-		dancePosRange[6]= initPos;
-		dancePosRange[7]= initPos;
-		dancePosRange[8]= initPos;
-		dancePosRange[9]= initPos;
+		dancePosRange[0]= Vector3.zero;
+		dancePosRange[1]= Vector3.zero;
+		dancePosRange[2]= Vector3.zero;
+		dancePosRange[3]= Vector3.zero;
+		dancePosRange[4]= Vector3.zero;
+		dancePosRange[5]= Vector3.zero;
+		dancePosRange[6]= Vector3.zero;
+		dancePosRange[7]= Vector3.zero;
+		dancePosRange[8]= Vector3.zero;
+		dancePosRange[9]= Vector3.zero;
+
+		adjacencyRange = new Vector3[10];
+		_move = new Vector3[10];
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-
-
-	
-
 		if(playerScript.GetComponent<player>().HeldObjectName == this.name){
-			canDance = false;
+			if (canDance) {
+				canDance = false;
+
+				if (_dir == 1)
+					_ind = _lerp0;
+				else
+					_ind = _lerp1;
+
+				setPosTimer = 0f;
+			}
 			setDancePos = true;
 			playerHasUs = true;
+			_posSet = false;
 
-			setPosTimer += Time.deltaTime;
-		
-
+		/////
 			float adjacentLine = Vector3.Distance(Camera.main.transform.position,initPos);
 			float angle = Vector3.Angle(initPos - Camera.main.transform.position, Camera.main.transform.forward) * Mathf.Deg2Rad;
 			angle = Mathf.Clamp (angle, 0f, Mathf.PI/4f);
 
-
-
 			float zVal = adjacentLine/Mathf.Cos(angle);
 
-
-			Debug.Log(angle);
 			transform.position = Camera.main.ScreenToWorldPoint(
 				new Vector3(Camera.main.pixelWidth/2  ,Camera.main.pixelHeight/2 ,zVal));
-
-			for(int i = 0; i < dancePosRange.Length; i++){
-				if(setPosTimer < i  && setPosTimer > i-1 ){
-					dancePosRange[i] = transform.position;
-					Debug.Log("set" + i);
-
-				}
-			}
+		/////
 		} 
 
 
+
+
 		if(playerHasUs){
-			if(playerScript.GetComponent<player>().HeldObjectName != this.name){
+			if (playerScript.GetComponent<player> ().HeldObjectName != this.name) {
 				canDance = true;
 				setPosTimer = 0f;
-				lerpValDamp = 0f;
 				playerHasUs = false;
+			} else {
+				if (setPosTimer == 0f)
+					AdjustPos (_ind);
 
+				setPosTimer += Time.deltaTime;
+
+				if (setPosTimer >= 1f) {
+					Debug.Log (_ind);
+					setPosTimer = 0f;
+
+					if(_dir == 1){
+						if (_ind >= dancePosRange.Length - 1)
+							_ind = 0;
+						else
+							++_ind;
+					}
+					else{
+						if (_ind <= 0)
+							_ind = dancePosRange.Length - 1;
+						else
+							--_ind;
+					}
+				}
 			}
 		}
 	
@@ -104,15 +133,18 @@ public class jointScript : MonoBehaviour {
 		if(canDance){
 			float _speed = 5f;
 
+			if (lerpValDamp != 0f) {
+				lerpValDamp = 0f;
+			}
 
 			lerpVal += Time.deltaTime*_speed;
 
 			lerpVal = Mathf.Clamp01(lerpVal);
 
 			if(_dir == 1)
-				transform.position = Vector3.Slerp(dancePosRange[_lerp0],dancePosRange[_lerp1], lerpVal);
+				transform.position = initPos + Vector3.Slerp(_move[_lerp0], _move[_lerp1], lerpVal);
 			else
-				transform.position = Vector3.Slerp(dancePosRange[_lerp1],dancePosRange[_lerp0], lerpVal);
+				transform.position = initPos + Vector3.Slerp(_move[_lerp1], _move[_lerp0], lerpVal);
 
 			if(lerpVal >= 1f){
 				if(_dir == 1){
@@ -134,16 +166,32 @@ public class jointScript : MonoBehaviour {
 			lerpValDamp += Time.deltaTime * 0.00001f;
 
 			for(int i = 0; i < dancePosRange.Length; i++){
-		
-				dancePosRange[i] = Vector3.Lerp(dancePosRange[i],initPos, lerpValDamp);
+				dancePosRange[i] = Vector3.Lerp(dancePosRange[i], Vector3.zero, lerpValDamp);
+
+				Vector3 _adjSum = Vector3.zero;
+				foreach (GameObject g in ADJACENCIES)
+					_adjSum += g.GetComponent<jointScript> ()._move [i];
+				adjacencyRange [i] = _adjSum / ADJACENCIES.Length;
+
+				_move [i] = (dancePosRange [i] + AFFECTED_CONST * adjacencyRange [i]) / (1f + AFFECTED_CONST);
 			}
+
+//			for (int a = 0; a < adjacencyRange.Length; a++) {
+//				Vector3 _adjSum = Vector3.zero;
+//
+//				foreach (GameObject g in ADJACENCIES)
+//					_adjSum += g.GetComponent<jointScript> ().dancePosRange [a];
+//
+//				adjacencyRange [a] = _adjSum / ADJACENCIES.Length;
+//				_move [a] = (dancePosRange [a] + AFFECTED_CONST * adjacencyRange [a]) / (1f + AFFECTED_CONST);
+//			}
+
+
 		}
-
-
-
-
-
 		
 	}
 
+	void AdjustPos(int _pos){
+		dancePosRange[_pos] = (transform.position - initPos);
+	}
 }

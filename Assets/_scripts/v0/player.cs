@@ -120,7 +120,8 @@ public class player : MonoBehaviour
 			//control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			lookatObject = false;
-			col.gameObject.GetComponent<thing>().SetCloneActive(false);
+			if(col.gameObject.GetComponent<thing>() != null)
+				col.gameObject.GetComponent<thing>().SetCloneActive(false);
 			if (col.transform.childCount > 0) {
 				for (int i = 0; i < col.transform.childCount; i++)
 					col.transform.GetChild (i).gameObject.layer = 8;
@@ -136,7 +137,8 @@ public class player : MonoBehaviour
 			if (hit.collider != null) {//if hit something
 				col = hit.collider.gameObject;
 				//pointer.GetComponent<Image>().color = Color.red;
-				col.gameObject.GetComponent<thing>().SetCloneActive(true);//sets the outline object on when raycast is colliding
+				if(col.gameObject.GetComponent<thing>() != null)
+					col.gameObject.GetComponent<thing>().SetCloneActive(true);//sets the outline object on when raycast is colliding
 
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
 				if (Input.GetMouseButtonDown (0) && !carryingObject && hit.collider != null && HeldObjectName == "") {
@@ -154,7 +156,8 @@ public class player : MonoBehaviour
 						//col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePosition;
 					}
 
-					col.gameObject.GetComponent<thing>().SetCloneActive(false);
+					if(col.gameObject.GetComponent<thing>() != null)
+						col.gameObject.GetComponent<thing>().SetCloneActive(false);
 
 		
 				}
@@ -163,7 +166,8 @@ public class player : MonoBehaviour
 		} else if (!lookatObject && !carryingObject) {
 			//	pointer.GetComponent<Image>().color = Color.white;
 			if (col != null) {
-				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
+				if(col.gameObject.GetComponent<thing>() != null)
+					col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
 				if (col.transform.childCount > 0) {
 					for (int i = 0; i < col.transform.childCount; i++) {
 						if(col.transform.GetChild (i).gameObject.layer != 8)
@@ -203,7 +207,8 @@ public class player : MonoBehaviour
 					}
 				}
 				object_camera.orthographic = false;
-				col.gameObject.GetComponent<thing> ().SetCloneActive (false);
+				if(col.gameObject.GetComponent<thing>() != null)
+					col.gameObject.GetComponent<thing> ().SetCloneActive (false);
 				col.transform.localPosition = _heldPos;
 			}
 		
