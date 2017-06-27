@@ -37,6 +37,37 @@ ModelImporter:
     100058: joint8
     100060: joint9
     100062: modelado_julian:mano_ref
+    100064: joint31
+    100066: joint32
+    100068: joint33
+    100070: joint35
+    100072: joint36
+    100074: joint37
+    100076: joint38
+    100078: joint39
+    100080: joint40
+    100082: joint41
+    100084: joint42
+    100086: joint43
+    100088: joint44
+    100090: joint45
+    100092: joint46
+    100094: joint47
+    100096: joint48
+    100098: joint49
+    100100: joint50
+    100102: joint51
+    100104: joint51 1
+    100106: joint52
+    100108: joint52 1
+    100110: joint53
+    100112: joint53 1
+    100114: joint54
+    100116: joint54 1
+    100118: joint55
+    100120: joint55 1
+    100122: joint56
+    100124: joint57
     400000: //RootNode
     400002: joint1
     400004: joint10
@@ -69,6 +100,37 @@ ModelImporter:
     400058: joint8
     400060: joint9
     400062: modelado_julian:mano_ref
+    400064: joint31
+    400066: joint32
+    400068: joint33
+    400070: joint35
+    400072: joint36
+    400074: joint37
+    400076: joint38
+    400078: joint39
+    400080: joint40
+    400082: joint41
+    400084: joint42
+    400086: joint43
+    400088: joint44
+    400090: joint45
+    400092: joint46
+    400094: joint47
+    400096: joint48
+    400098: joint49
+    400100: joint50
+    400102: joint51
+    400104: joint51 1
+    400106: joint52
+    400108: joint52 1
+    400110: joint53
+    400112: joint53 1
+    400114: joint54
+    400116: joint54 1
+    400118: joint55
+    400120: joint55 1
+    400122: joint56
+    400124: joint57
     2300000: //RootNode
     2300002: modelado_julian:mano_ref
     3300000: //RootNode
