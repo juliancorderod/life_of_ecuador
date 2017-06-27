@@ -147,11 +147,6 @@ public class player : MonoBehaviour
 					}
 					//control.center = new Vector3 (0, 0, 0.5f);
 					carryingObject = true;
-					if (col.transform.childCount > 0) {
-						for (int i = 0; i < col.transform.childCount; i++)
-							col.transform.GetChild (i).gameObject.layer = 9;
-					}
-					col.layer = 9;
 					if(col.gameObject.GetComponent<Rigidbody>() != null){
 						col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
 						//col.gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePosition;
@@ -168,8 +163,10 @@ public class player : MonoBehaviour
 			if (col != null) {
 				col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
 				if (col.transform.childCount > 0) {
-					for (int i = 0; i < col.transform.childCount; i++)
-						col.transform.GetChild (i).gameObject.layer = 8;
+					for (int i = 0; i < col.transform.childCount; i++) {
+						if(col.transform.GetChild (i).gameObject.layer != 8)
+							col.transform.GetChild (i).gameObject.layer = 8;
+					}
 				}
 				col.layer = 8;
 			}
@@ -188,7 +185,21 @@ public class player : MonoBehaviour
 		else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 			if (lookatObject) {
 				col.transform.localPosition = _rotatePos;
+				col.layer = 9;
+				if (col.transform.childCount > 0) {
+					for (int i = 0; i < col.transform.childCount; i++) {
+						if(col.transform.GetChild (i).gameObject.layer != 9)
+							col.transform.GetChild (i).gameObject.layer = 9;
+					}
+				}
 			} else {
+				col.layer = 8;
+				if (col.transform.childCount > 0) {
+					for (int i = 0; i < col.transform.childCount; i++) {
+						if(col.transform.GetChild (i).gameObject.layer != 8)
+							col.transform.GetChild (i).gameObject.layer = 8;
+					}
+				}
 				object_camera.orthographic = false;
 				col.gameObject.GetComponent<thing> ().SetCloneActive (false);
 				col.transform.localPosition = _heldPos;
