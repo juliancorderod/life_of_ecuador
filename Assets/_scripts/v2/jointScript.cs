@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class jointScript : MonoBehaviour {
+	public Material _encase;
 
 	private Vector3 initPos, dancePos;
 	public Vector3[] dancePosRange;
@@ -23,6 +24,8 @@ public class jointScript : MonoBehaviour {
 
 
 	public GameObject[] ADJACENCIES;
+	private GameObject[] SPHERES;
+
 	public Vector3[] adjacencyRange;
 	private float AFFECTED_CONST = 2f;
 
@@ -30,12 +33,18 @@ public class jointScript : MonoBehaviour {
 	private int _ind;
 	private bool _posSet;
 
+	[Range(0f, 10f)]
+	public int HEIGHT;
+
+	private float orig_average;
+
 	// Use this for initialization
 	void Start () {
 		playerScript = GameObject.FindGameObjectWithTag("Player");
 
 		canDance = true;
 		_ind = 0;
+		orig_average = 0f;
 
 
 		initPos = transform.position;
@@ -54,7 +63,13 @@ public class jointScript : MonoBehaviour {
 
 		adjacencyRange = new Vector3[10];
 		_move = new Vector3[10];
-	
+
+//		SPHERES = new GameObject[ADJACENCIES.Length];
+//
+		for (int i = 0; i < ADJACENCIES.Length; i++) {
+			orig_average += Vector3.Distance (transform.position, ADJACENCIES [i].transform.position) * 2f;
+		}
+		orig_average /= ADJACENCIES.Length;
 	}
 	
 	// Update is called once per frame
@@ -203,6 +218,7 @@ public class jointScript : MonoBehaviour {
 //				_move [a] = (dancePosRange [a] + AFFECTED_CONST * adjacencyRange [a]) / (1f + AFFECTED_CONST);
 //			}
 
+			AdjustSpheres ();
 
 		}
 		
@@ -211,7 +227,15 @@ public class jointScript : MonoBehaviour {
 	void AdjustPos(int _pos){
 		dancePosRange[_pos] = (transform.position - initPos);
 		++audioPitch;
+	}
 
+	void AdjustSpheres(){
+		float _added = 0f;
+		for (int i = 0; i < ADJACENCIES.Length; i++) {
+			_added += Vector3.Distance (transform.position, ADJACENCIES [i].transform.position) * 3f;
+		}
+		_added /= ADJACENCIES.Length;
 
+		transform.localScale = Vector3.one * Mathf.Clamp(Mathf.Abs(_added - orig_average) * HEIGHT, 0f, HEIGHT*1.25f);
 	}
 }
