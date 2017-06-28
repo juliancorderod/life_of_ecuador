@@ -30,7 +30,7 @@ public class centerTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.name == "player"){
+		if (col.gameObject.tag == "Player") {
 		songScript.GetComponent<songScript>().muteSong();
 		songScript.GetComponent<songScript>().motBlurOff();
 		headBob.inJungle = false;
@@ -40,7 +40,7 @@ public class centerTrigger : MonoBehaviour {
 
 	}
 	void OnTriggerExit(Collider col){
-		if(col.gameObject.name == "player"){
+		if (col.gameObject.tag == "Player") {
 		songScript.GetComponent<songScript>().unMuteSong();
 		songScript.GetComponent<songScript>().motBlurOn();
 		headBob.inJungle = true;
