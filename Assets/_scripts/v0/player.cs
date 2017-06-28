@@ -222,7 +222,7 @@ public class player : MonoBehaviour
 		}
 
 
-		if (lookatObject) {//look at object
+		if (lookatObject && col.tag != "joint") {//look at object
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 
 			object_camera.orthographic = true;

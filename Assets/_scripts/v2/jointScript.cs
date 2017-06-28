@@ -137,7 +137,7 @@ public class jointScript : MonoBehaviour {
 							--_ind;
 					}
 				}
-				jointAudio.volume = 1;
+				jointAudio.volume = 0.6f;
 				jointAudio.pitch = audioPitch /2;
 
 			}
