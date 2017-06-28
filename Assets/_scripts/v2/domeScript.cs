@@ -7,6 +7,8 @@ public class domeScript : MonoBehaviour {
 	public GameObject songScript;
 
 	bool playSongBG;
+
+	public GameObject[] otherOnesss;
 	// Use this for initialization
 	void Start () {
 
@@ -37,7 +39,9 @@ public class domeScript : MonoBehaviour {
 			songScript.GetComponent<songScriptv2>().unMuteSong();
 			playSongBG = true;
 
-		
+//			foreach(GameObject g in otherOnesss){
+//				g.SetActive(false);
+//			}
 		}
 
 	}
@@ -45,7 +49,11 @@ public class domeScript : MonoBehaviour {
 		if(col.gameObject.name == "player"){
 			songScript.GetComponent<songScriptv2>().muteSong();
 			playSongBG = false;
-		}
 
+//			foreach(GameObject g in otherOnesss){
+//				g.SetActive(true);
+//			}
+		}
+	
 	}
 }
