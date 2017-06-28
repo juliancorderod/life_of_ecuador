@@ -152,7 +152,7 @@ public class AntController : MonoBehaviour {
 	}
 
 	void AssignObject(GameObject g){
-		if (!hasObject && grounded) {
+		if (!hasObject && grounded && g.tag != "joint") {
 			g.transform.position = transform.position + Vector3.up * g.GetComponent<MeshFilter> ().mesh.bounds.size.y / 2f + Vector3.up*.1f;
 			g.transform.eulerAngles = Random.insideUnitSphere * 90f;
 			g.transform.parent = transform;
