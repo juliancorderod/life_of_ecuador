@@ -143,7 +143,7 @@ public class AntController : MonoBehaviour {
 		Ray _objectRay = new Ray (transform.position + transform.forward, transform.forward);
 		RaycastHit _objectHit = new RaycastHit ();
 
-		if (Physics.Raycast (_objectRay, out _objectHit, .05f, 1 << 8) && _objectHit.transform.tag != "ant")
+		if (Physics.Raycast (_objectRay, out _objectHit, .05f, 1 << 8) && _objectHit.transform.tag != "ant" && _objectHit.transform.tag != "joint")
 			AssignObject (_objectHit.collider.gameObject);
 
 		if (Mathf.Abs (Vector2.Angle(Vector2.one, _my2) - _dropAngle) <= _angleDist)
