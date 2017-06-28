@@ -16,6 +16,8 @@ public class songScriptv2 : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.35f);
+
 
 		if (mute) {
 			GetComponent<AudioSource> ().volume -= Time.deltaTime * 1.25f;

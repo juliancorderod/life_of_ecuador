@@ -16,7 +16,7 @@ public class domeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.35f);
+		GetComponent<AudioSource>().volume = Mathf.Clamp(GetComponent<AudioSource>().volume,0,0.15f);
 
 		if(playSongBG){
 			
