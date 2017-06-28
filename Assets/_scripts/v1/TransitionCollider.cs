@@ -36,7 +36,7 @@ public class TransitionCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "player") {
+		if (col.gameObject.tag == "Player") {
 			if(!_active)
 				_active = true;
 
