@@ -26,6 +26,6 @@ public class trianleScript : MonoBehaviour {
 		GetComponent<AudioSource>().clip = triangleThump;
 		GetComponent<AudioSource>().volume = 1;
 		GetComponent<AudioSource>().Play();
-		Debug.Log("playedDrop");
+		//Debug.Log("playedDrop");
 	}
 }
