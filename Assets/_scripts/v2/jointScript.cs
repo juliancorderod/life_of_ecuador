@@ -117,7 +117,7 @@ public class jointScript : MonoBehaviour {
 				setPosTimer += Time.deltaTime;
 
 				if (setPosTimer >= 1f) {
-					Debug.Log (_ind);
+					//Debug.Log (_ind);
 					setPosTimer = 0f;
 
 					if(_dir == 1){

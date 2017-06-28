@@ -112,7 +112,7 @@ public class player : MonoBehaviour
 
 
 		if (Input.GetMouseButtonDown (0) && carryingObject) {//drop object
-			Debug.Log ("drop");
+			//Debug.Log ("drop");
 			if(col.gameObject.GetComponent<Rigidbody>() == true){
 				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			}
@@ -149,7 +149,7 @@ public class player : MonoBehaviour
 				//Grab object if mouse clicked (also freezes object at center of screen and slightly moves the player's collision box so object doesn't go through walls)
 				if (Input.GetMouseButtonDown (0) && !carryingObject && hit.collider != null && HeldObjectName == "") {
 					if (!lookatObject) {
-						Debug.Log ("hit");
+						//Debug.Log ("hit");
 						col.transform.parent = Camera.main.transform;
 						_heldPos = col.transform.localPosition;
 						//col.transform.localPosition = new Vector3 (0.5f, -1f + Mathf.Pow(col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude), 1/8f) / 3f, 1f);
