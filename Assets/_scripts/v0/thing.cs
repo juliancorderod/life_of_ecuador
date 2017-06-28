@@ -34,6 +34,7 @@ public class thing : MonoBehaviour {
 		if(!_cloneMesh){
 			_clone.GetComponent<MeshFilter> ().sharedMesh = GetComponent<MeshFilter> ().sharedMesh;
 			_cloneMesh = true;
+			//Debug.Log ("hi");
 		}
 	}
 
