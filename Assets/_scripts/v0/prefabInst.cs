@@ -12,6 +12,10 @@ public class prefabInst : MonoBehaviour {
 	private GameObject[] _prefabs;
 	private GameObject[] _list;
 
+	public GameObject player;
+
+
+
 	// Use this for initialization
 	void Start () {
 		_prefabs = Resources.LoadAll<GameObject> ("_prefabs/stuff");

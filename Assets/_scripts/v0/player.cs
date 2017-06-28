@@ -33,17 +33,28 @@ public class player : MonoBehaviour
 	public GameObject dropSounds;
 
 	// Use this for initialization
+	void Awake(){
+		DontDestroyOnLoad(transform.gameObject);
+
+	}
+
 	void Start ()
 	{
 		
 		control = GetComponent<CharacterController> ();
 		rotating = -1f;
 		_rotatePos = new Vector3 (0f, 0f, 240f);
+
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		if(pointer == null){
+			pointer = GameObject.Find("pointer");
+		}
+
 		Cursor.lockState = CursorLockMode.Locked;
 
 		control.Move (transform.up * -Time.deltaTime * 20f);//gravity

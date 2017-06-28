@@ -35,7 +35,7 @@ public class domeScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.name == "player"){
+		if (col.gameObject.tag == "Player") {
 			songScript.GetComponent<songScriptv2>().unMuteSong();
 			playSongBG = true;
 
@@ -46,7 +46,7 @@ public class domeScript : MonoBehaviour {
 
 	}
 	void OnTriggerExit(Collider col){
-		if(col.gameObject.name == "player"){
+		if (col.gameObject.tag == "Player") {
 			songScript.GetComponent<songScriptv2>().muteSong();
 			playSongBG = false;
 
