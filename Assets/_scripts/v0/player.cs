@@ -119,7 +119,7 @@ public class player : MonoBehaviour
 	{
 		//this creates raycast in front of player used to grab objects
 		Ray playerRay = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
-		Physics.Raycast (playerRay, out hit, 7, layerMask);
+		Physics.Raycast (playerRay, out hit, 15f, layerMask);
 
 
 		if (Input.GetMouseButtonDown (0) && carryingObject) {//drop object
