@@ -9,7 +9,7 @@ public class playerLoadScript : MonoBehaviour {
 
 	void Awake(){
 		Instantiate(playerPrefab);
-		SceneManager.LoadScene ("_WAITINGROOM_v2");
+		SceneManager.LoadScene ("_WAITINGROOM_v3");
 
 	}
 		
