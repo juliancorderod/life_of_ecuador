@@ -27,6 +27,9 @@ public class escToMenu : MonoBehaviour {
 
 
 		if(escTimer >3f){
+			GameObject g = GameObject.FindGameObjectWithTag ("Player");
+			if (g != null)
+				GameObject.Destroy (g);
 			SceneManager.LoadScene ("_MENUSCREEN_v2");
 		}
 
