@@ -6,6 +6,13 @@ public class FlowerController : MonoBehaviour {
 	public bool _inComputer;
 
 	private GameObject _computer;
+
+	private SpriteRenderer[] _rends;
+	private Vector3 _material_color;
+	private float _alpha = 1f;
+
+	public static int _numFlowers = 0;
+
 	// Use this for initialization
 	void Start () {
 		_computer = GameObject.Find ("computer");
@@ -16,6 +23,10 @@ public class FlowerController : MonoBehaviour {
 			_inComputer = InComputer ();
 		} else
 			_inComputer = false;
+
+		++_numFlowers;
+
+		_rends = GetComponentsInChildren<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -31,6 +42,11 @@ public class FlowerController : MonoBehaviour {
 				transform.parent = null;
 			}
 		}
+
+		_material_color = Vector3.one * (_numFlowers / 100f);
+
+		_rends [0].material.color = new Color (_material_color.x, _material_color.y, _material_color.z, _alpha);
+		_rends [1].material.color = new Color (_material_color.x, _material_color.y, _material_color.z, _alpha);
 	}
 
 	bool InComputer(){
@@ -43,7 +59,7 @@ public class FlowerController : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if (transform.parent == null || transform.parent.name != "Main Camera") {
 			if (col.collider.gameObject.name == "computer") {
-				Debug.Log ("LOL");
+				--_numFlowers;
 				GameObject.Destroy (gameObject);
 			}
 		}
