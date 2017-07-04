@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOfLife : MonoBehaviour {
-	private int NUM_NEIGHBORS;
+	public int NUM_NEIGHBORS;
 
 	private Vector3[] DIRECTIONS;
 

@@ -34,7 +34,7 @@ public class FlowerController : MonoBehaviour {
 	}
 
 	bool InComputer(){
-		if (Mathf.Abs (transform.localPosition.x) >= .75f || Mathf.Abs (transform.localPosition.z) >= .75f || Mathf.Abs (transform.localPosition.y) >= .75f)
+		if (Mathf.Abs (transform.localPosition.x) >= .5f || Mathf.Abs (transform.localPosition.z) >= .5f || Mathf.Abs (transform.localPosition.y) >= .5f)
 			return false;
 		else
 			return true;
