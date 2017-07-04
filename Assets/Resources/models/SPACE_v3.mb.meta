@@ -4292,6 +4292,8 @@ ModelImporter:
     108568: pasted__pCube5
     108570: polySurface3605
     108572: polySurface3606
+    108574: polySurface3607
+    108576: polySurface3608
     400000: bottom1
     400002: pCube3
     400004: polySurface16
@@ -8579,6 +8581,8 @@ ModelImporter:
     408568: pasted__pCube5
     408570: polySurface3605
     408572: polySurface3606
+    408574: polySurface3607
+    408576: polySurface3608
     2300000: pCube3
     2300002: polySurface16
     2300004: polySurface20
@@ -12168,6 +12172,7 @@ ModelImporter:
     2307172: pCube6
     2307174: polySurface3605
     2307176: polySurface3606
+    2307178: polySurface3607
     3300000: pCube3
     3300002: polySurface16
     3300004: polySurface20
@@ -15757,6 +15762,7 @@ ModelImporter:
     3307172: pCube6
     3307174: polySurface3605
     3307176: polySurface3606
+    3307178: polySurface3607
     4300000: pCube3
     4300002: wall5
     4300004: polySurface16
@@ -19346,6 +19352,7 @@ ModelImporter:
     4307172: pCube11
     4307174: polySurface3605
     4307176: polySurface3606
+    4307178: polySurface3607
     9500000: //RootNode
   materials:
     importMaterials: 1
