@@ -54,8 +54,10 @@ public class GameOfLife : MonoBehaviour {
 
 	void Life(int n){
 		if (n < 1) {
+			--FlowerController._numFlowers;
 			GameObject.Destroy (gameObject);
 		} else if (n > 2) {
+			--FlowerController._numFlowers;
 			GameObject.Destroy (gameObject);
 		}
 		else if(GameObject.FindGameObjectsWithTag("flower").Length < MAX_FLOWERS){
