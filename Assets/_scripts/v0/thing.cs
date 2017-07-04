@@ -21,18 +21,20 @@ public class thing : MonoBehaviour {
 		_position = transform.position;
 
 
-		_clone = Instantiate (_zFightPrefab, _position, _rotation) as GameObject;
-		_clone.transform.localScale = _scale*1.00001f;
-		_clone.transform.parent = transform;
-
-		_cloneAlpha = _clone.GetComponent<MeshRenderer> ().material.color.a;
+		if (GetComponent<MeshFilter> () != null) {
+			_clone = Instantiate (_zFightPrefab, _position, _rotation) as GameObject;
+			_clone.transform.localScale = _scale * 1.00001f;
+			_clone.transform.parent = transform;
+			_cloneAlpha = _clone.GetComponent<MeshRenderer> ().material.color.a;
+		}
 
 		SetClone ();
 	}
 
 	void Update(){
 		if(!_cloneMesh){
-			_clone.GetComponent<MeshFilter> ().sharedMesh = GetComponent<MeshFilter> ().sharedMesh;
+			if(_clone != null)
+				_clone.GetComponent<MeshFilter> ().sharedMesh = GetComponent<MeshFilter> ().sharedMesh;
 			_cloneMesh = true;
 			//Debug.Log ("hi");
 		}
@@ -45,15 +47,16 @@ public class thing : MonoBehaviour {
 	}
 
 	void SetClone(){
-		if (_cloneActive && !_clone.activeInHierarchy) {
-			_clone.GetComponent<MeshRenderer> ().materials[0].color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
-			_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
-			_clone.SetActive (true);
-		} else if (!_cloneActive && _clone.activeInHierarchy) {
-			_clone.GetComponent<MeshRenderer> ().materials[0].color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
-			_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
-			_clone.SetActive (false);
+		if(_clone != null){
+			if (_cloneActive && !_clone.activeInHierarchy) {
+				_clone.GetComponent<MeshRenderer> ().materials[0].color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
+				_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
+				_clone.SetActive (true);
+			} else if (!_cloneActive && _clone.activeInHierarchy) {
+				_clone.GetComponent<MeshRenderer> ().materials[0].color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), _cloneAlpha);
+				_clone.GetComponent<MeshRenderer> ().materials[1].color = _clone.GetComponent<MeshRenderer> ().materials[0].color;
+				_clone.SetActive (false);
+			}
 		}
-
 	}
 }
