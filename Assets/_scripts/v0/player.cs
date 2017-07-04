@@ -216,17 +216,21 @@ public class player : MonoBehaviour
 					}
 				}
 			} else {
-				col.layer = 8;
-				if (col.transform.childCount > 0) {
-					for (int i = 0; i < col.transform.childCount; i++) {
-						if(col.transform.GetChild (i).gameObject.layer != 8)
-							col.transform.GetChild (i).gameObject.layer = 8;
+				if(col != null){
+					col.layer = 8;
+					if (col.transform.childCount > 0) {
+						for (int i = 0; i < col.transform.childCount; i++) {
+							if(col.transform.GetChild (i).gameObject.layer != 8)
+								col.transform.GetChild (i).gameObject.layer = 8;
+						}
 					}
+					object_camera.orthographic = false;
+					if(col.gameObject.GetComponent<thing>() != null)
+						col.gameObject.GetComponent<thing> ().SetCloneActive (false);
+					col.transform.localPosition = _heldPos;
+				} else{
+					carryingObject = false;
 				}
-				object_camera.orthographic = false;
-				if(col.gameObject.GetComponent<thing>() != null)
-					col.gameObject.GetComponent<thing> ().SetCloneActive (false);
-				col.transform.localPosition = _heldPos;
 			}
 		
 
