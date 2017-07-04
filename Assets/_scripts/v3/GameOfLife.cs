@@ -20,19 +20,19 @@ public class GameOfLife : MonoBehaviour {
 		NUM_NEIGHBORS = 0;
 
 		DIRECTIONS = new Vector3[6];
-		DIRECTIONS [0] = Vector3.up;
-		DIRECTIONS [1] = Vector3.down;
-		DIRECTIONS [2] = Vector3.right;
-		DIRECTIONS [3] = Vector3.left;
-		DIRECTIONS [4] = Vector3.forward;
-		DIRECTIONS [5] = Vector3.back;
+		DIRECTIONS [0] = transform.up;
+		DIRECTIONS [1] = -transform.up;
+		DIRECTIONS [2] = transform.right;
+		DIRECTIONS [3] = -transform.right;
+		DIRECTIONS [4] = transform.forward;
+		DIRECTIONS [5] = -transform.forward;
 
 		TIME_SINCE_CHECK = 0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.tag != "active") {
+		if (transform.parent == null || transform.parent.name != "Main Camera") {
 			if (TIME_SINCE_CHECK >= CHECK_TIME) {
 				CheckNeighbors ();
 				TIME_SINCE_CHECK = 0f;
@@ -53,39 +53,18 @@ public class GameOfLife : MonoBehaviour {
 	}
 
 	void Life(int n){
-		if (n < 1 && GetComponent<FlowerController>()._inComputer)
+		if (n < 1) {
 			GameObject.Destroy (gameObject);
-		else if (n > 2 && GetComponent<FlowerController>()._inComputer)
+		} else if (n > 2) {
 			GameObject.Destroy (gameObject);
+		}
 		else if(GameObject.FindGameObjectsWithTag("flower").Length < MAX_FLOWERS){
 			int _dir = Random.Range (0, 6);
-			bool _inCPU = CheckIfInComputer (transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, _RADIUS * .75f * transform.localScale.x);
-			int _length = 0;
 
-			if (_inCPU)
-				_length = 1;
-
-			if (Physics.OverlapSphere (transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, _RADIUS * .75f * transform.localScale.x).Length == _length) {
+			if (Physics.OverlapSphere (transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, _RADIUS * .75f * transform.localScale.x).Length == 0) {
 				GameObject newF = Instantiate (pr_flower, transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, transform.rotation) as GameObject;
 			}
 			
 		}
-	}
-
-	bool CheckIfInComputer(Vector3 _pos, float _rad){
-		Collider[] _overlaps = Physics.OverlapSphere (_pos, _rad);
-
-		bool _hitCPU = false;
-
-		if(_overlaps.Length > 0){
-			for (int i = 0; i < _overlaps.Length; i++) {
-				if (_overlaps [i].name == "computer") {
-					_hitCPU = true;
-					break;
-				}
-			}
-		}
-
-		return _hitCPU;
 	}
 }
