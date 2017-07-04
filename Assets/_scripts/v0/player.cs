@@ -239,11 +239,13 @@ public class player : MonoBehaviour
 								col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
 						}
 					}
+					object_camera.orthographic = false;
+					if(col.gameObject.GetComponent<thing>() != null)
+						col.gameObject.GetComponent<thing> ().SetCloneActive (false);
+					col.transform.localPosition = _heldPos;
+				} else{
+					carryingObject = false;
 				}
-				object_camera.orthographic = false;
-				if(col.gameObject.GetComponent<thing>() != null)
-					col.gameObject.GetComponent<thing> ().SetCloneActive (false);
-				col.transform.localPosition = _heldPos;
 			}
 		
 
