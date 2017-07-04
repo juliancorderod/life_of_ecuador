@@ -188,20 +188,20 @@ public class player : MonoBehaviour
 		} else if (!lookatObject && !carryingObject) {
 			//	pointer.GetComponent<Image>().color = Color.white;
 			if (col != null) {
-				if(col.gameObject.GetComponent<thing>() != null)
-					col.gameObject.GetComponent<thing>().SetCloneActive(false);//if raycast not colliding dont show outline
+				if (col.gameObject.GetComponent<thing> () != null)
+					col.gameObject.GetComponent<thing> ().SetCloneActive (false);//if raycast not colliding dont show outline
 				if (col.transform.childCount > 0) {
 					for (int i = 0; i < col.transform.childCount; i++) {
-						if(col.transform.GetChild (i).gameObject.layer != 8)
+						if (col.transform.GetChild (i).gameObject.layer != 8)
 							col.transform.GetChild (i).gameObject.layer = 8;
 						for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-							if(col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
+							if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
 								col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
 						}
 					}
 				}
 				col.layer = 8;
-			}
+			} 
 			//fuck
 
 			col = null;
@@ -216,34 +216,43 @@ public class player : MonoBehaviour
 		}
 		else if (carryingObject) {//if not holding ctrl or right mouse stop looking
 			if (lookatObject) {
-				col.transform.localPosition = _rotatePos;
-				col.layer = 9;
-				if (col.transform.childCount > 0) {
-					for (int i = 0; i < col.transform.childCount; i++) {
-						if(col.transform.GetChild (i).gameObject.layer != 9)
-							col.transform.GetChild (i).gameObject.layer = 9;
-						for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-							if(col.transform.GetChild (i).GetChild (j).gameObject.layer != 9)
-								col.transform.GetChild (i).GetChild (j).gameObject.layer = 9;
+				if (col != null) {
+					col.transform.localPosition = _rotatePos;
+					col.layer = 9;
+					if (col.transform.childCount > 0) {
+						for (int i = 0; i < col.transform.childCount; i++) {
+							if (col.transform.GetChild (i).gameObject.layer != 9)
+								col.transform.GetChild (i).gameObject.layer = 9;
+							for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
+								if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 9)
+									col.transform.GetChild (i).GetChild (j).gameObject.layer = 9;
+							}
 						}
 					}
+				} else {
+					lookatObject = false;
+					carryingObject = false;
 				}
 			} else {
-				col.layer = 8;
-				if (col.transform.childCount > 0) {
-					for (int i = 0; i < col.transform.childCount; i++) {
-						if(col.transform.GetChild (i).gameObject.layer != 8)
-							col.transform.GetChild (i).gameObject.layer = 8;
-						for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-							if(col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
-								col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+				if (col != null) {
+					col.layer = 8;
+					if (col.transform.childCount > 0) {
+						for (int i = 0; i < col.transform.childCount; i++) {
+							if (col.transform.GetChild (i).gameObject.layer != 8)
+								col.transform.GetChild (i).gameObject.layer = 8;
+							for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
+								if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
+									col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+							}
 						}
+						object_camera.orthographic = false;
+						if (col.gameObject.GetComponent<thing> () != null)
+							col.gameObject.GetComponent<thing> ().SetCloneActive (false);
+						col.transform.localPosition = _heldPos;
+					} else {
+						carryingObject = false;
 					}
-					object_camera.orthographic = false;
-					if(col.gameObject.GetComponent<thing>() != null)
-						col.gameObject.GetComponent<thing> ().SetCloneActive (false);
-					col.transform.localPosition = _heldPos;
-				} else{
+				} else {
 					carryingObject = false;
 				}
 			}
@@ -252,7 +261,7 @@ public class player : MonoBehaviour
 		}
 
 
-		if (lookatObject && col.tag != "joint") {//look at object
+		if (col != null && lookatObject && col.tag != "joint") {//look at object
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 
 			object_camera.orthographic = true;
