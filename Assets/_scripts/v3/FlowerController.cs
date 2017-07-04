@@ -21,12 +21,12 @@ public class FlowerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (_inComputer) {
-			if (transform.localScale.x != .05f) {
+			if (transform.localScale.x >= .5f) {
 				transform.localScale = Vector3.one * .05f;
 				transform.parent = _computer.transform;
 			}
 		} else {
-			if (transform.localScale.x != 1f) {
+			if (transform.localScale.x < .5f) {
 				transform.localScale = Vector3.one;
 				transform.parent = null;
 			}
@@ -41,8 +41,9 @@ public class FlowerController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
-		if (transform.tag != "active") {
+		if (transform.parent == null || transform.parent.name != "Main Camera") {
 			if (col.collider.gameObject.name == "computer") {
+				Debug.Log ("LOL");
 				GameObject.Destroy (gameObject);
 			}
 		}
