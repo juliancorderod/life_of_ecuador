@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class computerController : MonoBehaviour {
 
-	public GameObject flowerObj;
+	GameObject flowerObj;
 
 	// Use this for initialization
 	void Start () {
 
+		flowerObj = Resources.Load<GameObject> ("_prefabs/stuff/flowers");
 
 		
 	}
