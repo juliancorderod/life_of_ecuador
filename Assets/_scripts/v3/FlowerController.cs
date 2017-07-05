@@ -8,8 +8,6 @@ public class FlowerController : MonoBehaviour {
 	private GameObject _computer;
 
 	private SpriteRenderer[] _rends;
-	private Vector3 _material_color;
-	private float _alpha = 1f;
 
 	public static int _numFlowers = 0;
 
@@ -43,12 +41,8 @@ public class FlowerController : MonoBehaviour {
 			}
 		}
 
-		_material_color = Vector3.one * (_numFlowers / 100f);
-
-		_rends [0].material.color = new Color (_material_color.x, _material_color.y, _material_color.z, _alpha);
-		_rends [1].material.color = new Color (_material_color.x, _material_color.y, _material_color.z, _alpha);
-
-	//	Debug.Log (_numFlowers);
+		_rends [0].material.color = Color.HSVToRGB(30f/360f, 1f, _numFlowers / 100f);
+		_rends [1].material.color = Color.HSVToRGB(30f/360f, 1f, _numFlowers / 100f);
 	}
 
 	bool InComputer(){
