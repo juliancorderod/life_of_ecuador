@@ -74,6 +74,7 @@ public class jointScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if(playerScript.GetComponent<player>().HeldObjectName == this.name){
 			if (canDance) {
 				canDance = false;
@@ -106,11 +107,13 @@ public class jointScript : MonoBehaviour {
 
 		if(playerHasUs){
 			if (playerScript.GetComponent<player> ().HeldObjectName != this.name) {
+				
 				canDance = true;
 				setPosTimer = 0f;
 				jointAudio.volume = 0;
 				playerHasUs = false;
 			} else {
+				
 				if (setPosTimer == 0f)
 					AdjustPos (_ind);
 
