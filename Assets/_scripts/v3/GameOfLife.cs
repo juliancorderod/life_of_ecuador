@@ -45,7 +45,7 @@ public class GameOfLife : MonoBehaviour {
 		NUM_NEIGHBORS = 0;
 
 		for (int i = 0; i < DIRECTIONS.Length; i++) {
-			if(Physics.OverlapSphere (transform.position + DIRECTIONS [i]*_RADIUS*2f * transform.localScale.x, _RADIUS*.75f* transform.localScale.x).Length > 0)
+			if(Physics.OverlapSphere (transform.position + DIRECTIONS [i]*_RADIUS*2f * transform.localScale.x, _RADIUS*.75f* transform.localScale.x, ~(1<<14)).Length > 0)
 				NUM_NEIGHBORS += 1;
 		}
 
@@ -63,7 +63,7 @@ public class GameOfLife : MonoBehaviour {
 		else if(GameObject.FindGameObjectsWithTag("flower").Length < MAX_FLOWERS){
 			int _dir = Random.Range (0, 6);
 
-			if (Physics.OverlapSphere (transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, _RADIUS * .75f * transform.localScale.x).Length == 0) {
+			if (Physics.OverlapSphere (transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, _RADIUS * .75f * transform.localScale.x, ~(1<<14)).Length == 0) {
 				GameObject newF = Instantiate (pr_flower, transform.position + DIRECTIONS [_dir] * _RADIUS * 2f * transform.localScale.x, transform.rotation) as GameObject;
 			}
 			
