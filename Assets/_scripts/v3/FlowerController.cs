@@ -41,8 +41,8 @@ public class FlowerController : MonoBehaviour {
 			}
 		}
 
-		_rends [0].material.color = Color.HSVToRGB(30f/360f, 1f, _numFlowers / 100f);
-		_rends [1].material.color = Color.HSVToRGB(30f/360f, 1f, _numFlowers / 100f);
+		_rends [0].material.color = Color.HSVToRGB(30f/360f, _numFlowers / 100f, 1f);
+		_rends [1].material.color = Color.HSVToRGB(30f/360f, _numFlowers / 100f, 1f);
 	}
 
 	bool InComputer(){
