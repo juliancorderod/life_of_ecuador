@@ -47,6 +47,8 @@ public class FlowerController : MonoBehaviour {
 
 		_rends [0].material.color = new Color (_material_color.x, _material_color.y, _material_color.z, _alpha);
 		_rends [1].material.color = new Color (_material_color.x, _material_color.y, _material_color.z, _alpha);
+
+		Debug.Log (_numFlowers);
 	}
 
 	bool InComputer(){
