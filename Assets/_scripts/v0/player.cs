@@ -127,6 +127,8 @@ public class player : MonoBehaviour
 			if(col.gameObject.GetComponent<Rigidbody>() == true){
 				col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			}
+				
+			col.transform.localPosition = _heldPos;
 			col.transform.parent = null;
 			//col.transform.localPosition = Camera.main.transform.position +  (Camera.main.transform.forward * 2f);
 			//control.center = new Vector3 (0, 0, 0);
@@ -138,9 +140,11 @@ public class player : MonoBehaviour
 				for (int i = 0; i < col.transform.childCount; i++) {
 					if(col.transform.GetChild (i).gameObject.layer != 8)
 						col.transform.GetChild (i).gameObject.layer = 8;
-					for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-						if(col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
-							col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+					if (col.transform.GetChild (i).transform.childCount > 0) {
+						for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
+							if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
+								col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+						}
 					}
 				}
 			}
@@ -194,9 +198,11 @@ public class player : MonoBehaviour
 					for (int i = 0; i < col.transform.childCount; i++) {
 						if (col.transform.GetChild (i).gameObject.layer != 8)
 							col.transform.GetChild (i).gameObject.layer = 8;
-						for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-							if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
-								col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+						if (col.transform.GetChild (i).transform.childCount > 0) {
+							for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
+								if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
+									col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+							}
 						}
 					}
 				}
@@ -223,15 +229,18 @@ public class player : MonoBehaviour
 						for (int i = 0; i < col.transform.childCount; i++) {
 							if (col.transform.GetChild (i).gameObject.layer != 9)
 								col.transform.GetChild (i).gameObject.layer = 9;
-							for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-								if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 9)
-									col.transform.GetChild (i).GetChild (j).gameObject.layer = 9;
+							if (col.transform.GetChild (i).transform.childCount > 0) {
+								for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
+									if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 9)
+										col.transform.GetChild (i).GetChild (j).gameObject.layer = 9;
+								}
 							}
 						}
 					}
 				} else {
 					lookatObject = false;
 					carryingObject = false;
+					Debug.Log ("f");
 				}
 			} else {
 				if (col != null) {
@@ -240,20 +249,21 @@ public class player : MonoBehaviour
 						for (int i = 0; i < col.transform.childCount; i++) {
 							if (col.transform.GetChild (i).gameObject.layer != 8)
 								col.transform.GetChild (i).gameObject.layer = 8;
-							for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
-								if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
-									col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+							if (col.transform.GetChild (i).transform.childCount > 0) {
+								for (int j = 0; j < col.transform.GetChild (i).childCount; j++) {
+									if (col.transform.GetChild (i).GetChild (j).gameObject.layer != 8)
+										col.transform.GetChild (i).GetChild (j).gameObject.layer = 8;
+								}
 							}
 						}
 						object_camera.orthographic = false;
 						if (col.gameObject.GetComponent<thing> () != null)
 							col.gameObject.GetComponent<thing> ().SetCloneActive (false);
 						col.transform.localPosition = _heldPos;
-					} else {
-						carryingObject = false;
-					}
+					} 
 				} else {
 					carryingObject = false;
+					Debug.Log ("f");
 				}
 			}
 		
