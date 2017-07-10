@@ -17,7 +17,7 @@ public class toComputerRoom : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		if (col.gameObject.tag == "Player") {
-			SceneManager.LoadScene ("_COMPUTERROOM_v3");
+			SceneManager.LoadScene ("_COMPUTERROOM_v4");
 
 		}
 	}
