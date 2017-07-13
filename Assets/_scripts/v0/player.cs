@@ -19,6 +19,8 @@ public class player : MonoBehaviour
 	RaycastHit hit;
 	bool carryingObject = false;
 	public string HeldObjectName = "";
+	public GameObject HeldObject;
+
 	int layerMask = 1 << 8;
 	bool lookatObject = false;
 	GameObject col;
@@ -289,10 +291,13 @@ public class player : MonoBehaviour
 			pointer.GetComponent<Image>().color = Color.white;
 		}
 
-		if (carryingObject)
+		if (carryingObject) {
 			HeldObjectName = col.name;
-		else
+			HeldObject = col.gameObject;
+		} else {
 			HeldObjectName = "";
+			HeldObject = null;
+		}
 
 
 	}
