@@ -54,13 +54,16 @@ public class CarExhaustController : MonoBehaviour {
 //
 //			if(!_colliding)
 //				s = _FRAMES [_IND];
-			//_p.loop = true;
-		} else
-			//_p.loop = false;
+			if(!_p.isPlaying)
+				_p.Play();
+		} else {
+			if (_p.isPlaying)
+				_p.Stop ();
+		}
 
 		//GetComponent<SpriteRenderer> ().sprite = s;
 
-		transform.LookAt (transform.position - _sc._move_vector + Vector3.down*_lookSway);
+		transform.LookAt (transform.position + _sc._move_vector);
 	}
 
 	public void SetState(bool b){
