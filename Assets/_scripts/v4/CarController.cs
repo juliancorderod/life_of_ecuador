@@ -7,14 +7,18 @@ public class CarController : MonoBehaviour {
 	private GameObject _object;
 
 	private Vector3 _from_object;
-	private Vector3 _move_vector;
+	public Vector3 _move_vector;
 
 	public float _speed;
 	private float _lerp_speed = .5f;
 
+	private CarExhaustController[] _exhausts;
+
 	// Use this for initialization
 	void Start () {
 		_player = GameObject.Find ("player").GetComponent<player>();
+
+		_exhausts = GetComponentsInChildren<CarExhaustController> ();
 
 		_move_vector = Vector3.zero;
 	}
@@ -29,19 +33,22 @@ public class CarController : MonoBehaviour {
 
 			_move_vector = Vector3.Lerp (_move_vector, _from_object, _lerp_speed * Time.deltaTime);
 
-			Debug.Log(Vector3.Angle(_move_vector, _from_object));
+			foreach (CarExhaustController c in _exhausts)
+				c.SetState (true);
 		} else {
 			_from_object = Vector3.zero;
 			_move_vector = _from_object;
+
+			foreach (CarExhaustController c in _exhausts)
+				c.SetState (false);
 		}
 
 		transform.position += _move_vector * _speed * Time.deltaTime;
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "player")
-			col.transform.parent = transform;
-		else if (col.gameObject.layer == 8)
+		Debug.Log (col.name);
+		if (col.gameObject.name == "player" || col.gameObject.layer == 8)
 			col.transform.parent = transform;
 	}
 

@@ -58,5 +58,12 @@ public class thing : MonoBehaviour {
 				_clone.SetActive (false);
 			}
 		}
+
+		if (transform.childCount > 0) {
+			for (int i = 0; i < transform.childCount; i++) {
+				if(transform.GetChild(i).GetComponent<thing>() != null)
+					transform.GetChild (i).GetComponent<thing> ().SetCloneActive (_cloneActive);
+			}
+		}
 	}
 }
