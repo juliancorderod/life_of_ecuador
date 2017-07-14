@@ -136,8 +136,9 @@ public class player : MonoBehaviour
 			//control.center = new Vector3 (0, 0, 0);
 			carryingObject = false;
 			lookatObject = false;
-			if(col.gameObject.GetComponent<thing>() != null)
-				col.gameObject.GetComponent<thing>().SetCloneActive(false);
+			if (col.gameObject.GetComponent<thing> () != null) {
+				col.gameObject.GetComponent<thing> ().SetCloneActive (false);
+			}
 			if (col.transform.childCount > 0) {
 				for (int i = 0; i < col.transform.childCount; i++) {
 					if(col.transform.GetChild (i).gameObject.layer != 8)
