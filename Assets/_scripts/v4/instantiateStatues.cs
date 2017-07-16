@@ -34,7 +34,8 @@ public class instantiateStatues : MonoBehaviour {
 				newPrefab.name != "insects(Clone)" &&
 				newPrefab.name != "person(Clone)" &&
 				newPrefab.name != "statue_(Clone)" &&
-				newPrefab.name != "computer(Clone)")) {
+				newPrefab.name != "computer(Clone)"  &&
+				newPrefab.name != "radio(Clone)")) {
 
 				if (newPrefab.GetComponent<MeshFilter> ().mesh.name == "Cube Instance" && Random.Range (0, 50) != 0) {
 					Destroy (newPrefab);
