@@ -13,6 +13,8 @@ public class radioScript : MonoBehaviour {
 	AudioSource radioPlayer;
 	int songIndex;
 
+	public GameObject carPrefab;
+
 	// Use this for initialization
 	void Start () {
 
@@ -28,7 +30,9 @@ public class radioScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+		if(transform.parent == null){
+			transform.parent = carPrefab.transform;;
+		}
 
 		if(playerScript.GetComponent<player>().HeldObjectName == this.name)
 			playerHasUs = true;
