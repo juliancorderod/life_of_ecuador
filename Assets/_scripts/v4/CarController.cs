@@ -21,9 +21,11 @@ public class CarController : MonoBehaviour {
 	public GameObject _brakeLights;
 	private float _maxDistance = 900f;
 
+	public bool inCar = false;
+
 	// Use this for initialization
 	void Start () {
-		_player = GameObject.Find ("player").GetComponent<player>();
+		_player = GameObject.FindGameObjectWithTag ("Player").GetComponent<player>();
 
 		_exhausts = GetComponentsInChildren<CarExhaustController> ();
 
@@ -83,12 +85,20 @@ public class CarController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "player")
+		
+		if (col.gameObject.name == "player"){
+			inCar = true;
 			col.transform.parent = transform;
+			//DontDestroyOnLoad(transform.gameObject);
+		}
 	}
 
+
 	void OnTriggerExit(Collider col){
-		if (col.gameObject.name == "player")
+		if (col.gameObject.name == "player"){
+			inCar = false;
 			col.transform.parent = null;
+
+		}
 	}
 }
