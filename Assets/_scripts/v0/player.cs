@@ -70,7 +70,7 @@ public class player : MonoBehaviour
 		leftRightLook = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 
 
-
+		transform.eulerAngles = new Vector3 (0f, transform.eulerAngles.y, 0f);
 
 
 		if (!lookatObject) {//so when you're looking at stuff you cant move

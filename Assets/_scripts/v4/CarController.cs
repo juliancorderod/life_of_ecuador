@@ -19,7 +19,7 @@ public class CarController : MonoBehaviour {
 	private float _maxShake = .5f;
 
 	public GameObject _brakeLights;
-	private float _maxDistance = 900f;
+	private float _maxDistance = 400f;
 
 	public bool inCar = false;
 
@@ -40,8 +40,13 @@ public class CarController : MonoBehaviour {
 		if (_object != null) {
 			if (!_started) {
 				_started = true;
-				_angle = transform.eulerAngles;
 			}
+
+			Quaternion targetRotation = Quaternion.LookRotation (transform.position - new Vector3(_object.transform.position.x, transform.position.y, _object.transform.position.z));
+			float str = Mathf.Min (_lerp_speed * 2.5f * Time.deltaTime, 1f);
+			transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, str);
+
+			_angle = transform.eulerAngles;
 				
 			_from_object = (_object.transform.position - transform.position).normalized;
 			_from_object -= Vector3.up * _from_object.y;
