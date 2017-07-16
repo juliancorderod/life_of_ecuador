@@ -21,6 +21,8 @@ public class CarController : MonoBehaviour {
 	public GameObject _brakeLights;
 	private float _maxDistance = 900f;
 
+	public bool inCar = false;
+
 	// Use this for initialization
 	void Start () {
 		_player = GameObject.FindGameObjectWithTag ("Player").GetComponent<player>();
