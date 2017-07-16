@@ -13,7 +13,7 @@ public class radioScript : MonoBehaviour {
 	AudioSource radioPlayer;
 	int songIndex;
 
-	public GameObject carPrefab;
+	GameObject carPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +23,8 @@ public class radioScript : MonoBehaviour {
 		songIndex = Random.Range(0, radioSongs.Length);
 
 		playerScript = GameObject.FindGameObjectWithTag("Player");
+
+		carPrefab = GameObject.FindGameObjectWithTag("car");
 
 		
 	}
@@ -57,15 +59,16 @@ public class radioScript : MonoBehaviour {
 			radioPlayer.clip = radioSongs[songIndex];
 		}
 		
+		if(carPrefab != null){
+			if(carPrefab.GetComponent<CarController>().inCar){
 
-		if(carPrefab.GetComponent<CarController>().inCar){
+				GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.Stoneroom;
 
-			GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.Stoneroom;
+			}else{
 
-		}else{
+				GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.CarpetedHallway;
 
-			GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.CarpetedHallway;
-
+			}
 		}
 		
 	}

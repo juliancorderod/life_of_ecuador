@@ -23,7 +23,7 @@ public class CarController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_player = GameObject.Find ("player").GetComponent<player>();
+		_player = GameObject.FindGameObjectWithTag ("Player").GetComponent<player>();
 
 		_exhausts = GetComponentsInChildren<CarExhaustController> ();
 
@@ -80,16 +80,10 @@ public class CarController : MonoBehaviour {
 		if (col.gameObject.name == "player"){
 			inCar = true;
 			col.transform.parent = transform;
-			DontDestroyOnLoad(transform.gameObject);
+			//DontDestroyOnLoad(transform.gameObject);
 		}
 	}
 
-//	void OnTriggerStay(Collider col){
-//
-//		if (col.gameObject.name == "player"){
-//			DontDestroyOnLoad(transform.gameObject);
-//		}
-//	}
 
 	void OnTriggerExit(Collider col){
 		if (col.gameObject.name == "player"){
