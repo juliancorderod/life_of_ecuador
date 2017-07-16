@@ -61,8 +61,13 @@ public class CarController : MonoBehaviour {
 		transform.position += _move_vector * _speed * Time.deltaTime;
 	}
 
+	void OnCollisionEnter(Collision col){
+		if (col.gameObject.layer == 8)
+			col.transform.parent = transform;
+	}
+
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "player" || col.gameObject.layer == 8)
+		if (col.gameObject.name == "player")
 			col.transform.parent = transform;
 	}
 

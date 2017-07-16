@@ -55,7 +55,7 @@ public class radioScript : MonoBehaviour {
 		
 
 
-		Debug.Log(songIndex);
+		//Debug.Log(songIndex);
 		
 	}
 }
