@@ -13,6 +13,7 @@ public class instantiateStatues : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		GameObject new_prefab = null;
 
 		prefab = Resources.LoadAll<GameObject> ("_prefabs/stuff");
 
@@ -23,31 +24,31 @@ public class instantiateStatues : MonoBehaviour {
 
 		//meshes should have about 100 verts
 		for(int i = 0; i < num_objects ; i++){
-			newPrefab = Instantiate(prefab[Random.Range(0,prefab.Length)], verts[Random.Range(0, verts.Length)]+ transform.position
-				+ new Vector3(Random.Range(-2,2), Random.Range(-2,2), Random.Range(-2,2)),Random.rotation,transform);
+			new_prefab = prefab [Random.Range (0, prefab.Length)];
 
+			if (new_prefab.GetComponent<MeshFilter> () != null &&
+				(new_prefab.name != "light-ball" && 
+					new_prefab.name != "car" &&
+					new_prefab.name != "flowers" &&
+					new_prefab.name != "insects" &&
+					new_prefab.name != "person" &&
+					new_prefab.name != "statue_" &&
+					new_prefab.name != "computer"  &&
+					new_prefab.name != "radio")) {
 
-			if (newPrefab.GetComponent<MeshFilter> () != null &&
-				(newPrefab.name != "light-ball(Clone)" && 
-				newPrefab.name != "car(Clone)" &&
-				newPrefab.name != "flowers(Clone)" &&
-				newPrefab.name != "insects(Clone)" &&
-				newPrefab.name != "person(Clone)" &&
-				newPrefab.name != "statue_(Clone)" &&
-				newPrefab.name != "computer(Clone)"  &&
-				newPrefab.name != "radio(Clone)")) {
-
-				if (newPrefab.GetComponent<MeshFilter> ().mesh.name == "Cube Instance" && Random.Range (0, 50) != 0) {
-					Destroy (newPrefab);
+				if (new_prefab.GetComponent<MeshRenderer>().sharedMaterial.name == "3" && Random.Range (0, 50) != 0) {
+					//Debug.Log ("hey");
 					--i;
 				} else {
+					newPrefab = Instantiate(new_prefab, verts[Random.Range(0, verts.Length)]+ transform.position
+						+ new Vector3(Random.Range(-2,2), Random.Range(-2,2), Random.Range(-2,2)),Random.rotation,transform);
+					
 					if (newPrefab.GetComponent<MeshFilter> ().mesh.bounds.size.magnitude != 0)
 						newPrefab.transform.localScale /= newPrefab.GetComponent<MeshFilter> ().mesh.bounds.size.magnitude / 3f;
 					if (newPrefab.GetComponent<Collider> () != null)
 						newPrefab.GetComponent<Collider> ().enabled = false;
 				}
 			} else {
-				Destroy (newPrefab);
 				--i;
 			}
 		}
