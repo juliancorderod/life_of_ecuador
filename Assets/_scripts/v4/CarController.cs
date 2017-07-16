@@ -18,6 +18,8 @@ public class CarController : MonoBehaviour {
 	private Vector3 _angle;
 	private float _maxShake = .5f;
 
+	public GameObject _brakeLights;
+
 	// Use this for initialization
 	void Start () {
 		_player = GameObject.Find ("player").GetComponent<player>();
@@ -49,6 +51,9 @@ public class CarController : MonoBehaviour {
 				transform.eulerAngles = _angle + Random.insideUnitSphere * _maxShake;
 			else
 				transform.eulerAngles = _angle;
+
+			if (_brakeLights.activeInHierarchy)
+				_brakeLights.SetActive (false);
 		} else {
 			_started = false;
 			_from_object = Vector3.zero;
@@ -56,6 +61,9 @@ public class CarController : MonoBehaviour {
 
 			foreach (CarExhaustController c in _exhausts)
 				c.SetState (false);
+
+			if (!_brakeLights.activeInHierarchy)
+				_brakeLights.SetActive (true);
 		}
 
 		transform.position += _move_vector * _speed * Time.deltaTime;
