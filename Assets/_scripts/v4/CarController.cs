@@ -19,6 +19,7 @@ public class CarController : MonoBehaviour {
 	private float _maxShake = .5f;
 
 	public GameObject _brakeLights;
+	public bool inCar = false;
 
 	// Use this for initialization
 	void Start () {
@@ -75,12 +76,26 @@ public class CarController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "player")
+		
+		if (col.gameObject.name == "player"){
+			inCar = true;
 			col.transform.parent = transform;
+			DontDestroyOnLoad(transform.gameObject);
+		}
 	}
 
+//	void OnTriggerStay(Collider col){
+//
+//		if (col.gameObject.name == "player"){
+//			DontDestroyOnLoad(transform.gameObject);
+//		}
+//	}
+
 	void OnTriggerExit(Collider col){
-		if (col.gameObject.name == "player")
+		if (col.gameObject.name == "player"){
+			inCar = false;
 			col.transform.parent = null;
+
+		}
 	}
 }

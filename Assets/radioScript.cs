@@ -58,8 +58,15 @@ public class radioScript : MonoBehaviour {
 		}
 		
 
+		if(carPrefab.GetComponent<CarController>().inCar){
 
-		//Debug.Log(songIndex);
+			GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.Stoneroom;
+
+		}else{
+
+			GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.CarpetedHallway;
+
+		}
 		
 	}
 }
