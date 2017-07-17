@@ -91,7 +91,7 @@ public class CarController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		
-		if (col.gameObject.name == "player"){
+		if (col.gameObject.tag  == "Player"){
 			inCar = true;
 			col.transform.parent = transform;
 			//DontDestroyOnLoad(transform.gameObject);
@@ -100,7 +100,7 @@ public class CarController : MonoBehaviour {
 
 
 	void OnTriggerExit(Collider col){
-		if (col.gameObject.name == "player"){
+		if (col.gameObject.tag == "Player"){
 			inCar = false;
 			col.transform.parent = null;
 
