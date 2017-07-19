@@ -71,6 +71,7 @@ ModelImporter:
     4300002: person_hair
     9500000: //RootNode
     13700000: pSphere2
+    13700002: person_hair
   materials:
     importMaterials: 1
     materialName: 0
