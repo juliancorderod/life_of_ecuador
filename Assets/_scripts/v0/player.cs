@@ -53,9 +53,9 @@ public class player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(pointer == null){
-			pointer = GameObject.Find("pointer");
-		}
+//		if(pointer == null){
+//			pointer = GameObject.Find("pointer");
+//		}
 
 		Cursor.lockState = CursorLockMode.Locked;
 
@@ -287,9 +287,9 @@ public class player : MonoBehaviour
 
 			col.transform.Rotate (transform.up , -leftRightLookObj, Space.World);
 			col.transform.Rotate (transform.right, upDownLookObj, Space.World);
-			pointer.GetComponent<Image>().color = Color.clear;
+			//pointer.GetComponent<Image>().color = Color.clear;
 		}else{
-			pointer.GetComponent<Image>().color = Color.white;
+			//pointer.GetComponent<Image>().color = Color.white;
 		}
 
 		if (carryingObject) {

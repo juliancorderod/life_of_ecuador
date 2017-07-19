@@ -28,6 +28,12 @@ ModelImporter:
     100040: rShoulder
     100042: rWrist
     100044: topChest
+    100046: person_hair
+    100048: person_hair 1
+    100050: polySurface2
+    100052: transform1
+    100054: transform2
+    100056: transform3
     400000: //RootNode
     400002: chest
     400004: Crotch
@@ -51,9 +57,18 @@ ModelImporter:
     400040: rShoulder
     400042: rWrist
     400044: topChest
+    400046: person_hair
+    400048: person_hair 1
+    400050: polySurface2
+    400052: transform1
+    400054: transform2
+    400056: transform3
     2300000: //RootNode
+    2300002: person_hair
     3300000: //RootNode
+    3300002: person_hair
     4300000: pSphere2
+    4300002: person_hair
     9500000: //RootNode
     13700000: pSphere2
   materials:
