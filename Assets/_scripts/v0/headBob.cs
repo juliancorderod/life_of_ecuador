@@ -63,7 +63,7 @@ public class headBob : MonoBehaviour {
 
 
 
-		transform.localPosition = new Vector3(transform.localPosition.x, yVal, transform.localPosition.z);
+		//transform.localPosition = new Vector3(transform.localPosition.x, yVal, transform.localPosition.z);
 
 		lerpVal = Mathf.Clamp01(lerpVal);
 
