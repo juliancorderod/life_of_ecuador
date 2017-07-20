@@ -12,7 +12,7 @@ public class player : MonoBehaviour
 	[Range (40f, 100f)]
 	public float rotationVal;
 	public float playerSpeed, sprintSpeed, crouchSpeed;
-	float vertical, upDownLook, upDownLookObj, leftRightLook, leftRightLookObj, rotating;
+	public float vertical, upDownLook, upDownLookObj, leftRightLook, leftRightLookObj, rotating;
 	public bool isCrouching = false;
 
 
