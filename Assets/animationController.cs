@@ -27,6 +27,17 @@ public class animationController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+
+		if(playerScript.isCrouching){
+			if(Input.GetKey (KeyCode.Space)) {
+
+				if (playerScript.HeldObject == null)
+					playerAnimator.Play ("crouchWalk");
+				else
+					playerAnimator.Play ("crouchWalkNoArms");
+			}
+
+		}else
 		if(Input.GetKey (KeyCode.V)){
 			if (playerScript.HeldObject == null)
 				playerAnimator.Play ("run");
