@@ -5,12 +5,11 @@ using UnityEngine;
 public class FollowCameraHolder : MonoBehaviour {
 	private GameObject _followed;
 
-	public float _angle;
-	private float _lerpSpeed = .5f;
-	private float _angleChange;
+	private float _angleSpeed = .5f;
+	private float _dirSpeed = 2f;
 
-	float _x;
-	float _minDistMove = 5f;
+	private float _angleChange;
+	public float _direction;
 
 	void Awake(){
 		_followed = GameObject.FindGameObjectWithTag ("Player");
@@ -21,8 +20,8 @@ public class FollowCameraHolder : MonoBehaviour {
 		if (transform.parent != null)
 			transform.parent = null;
 
-		_angle = DecideAngle ();
 		_angleChange = 0f;
+		_direction = 0f;
 	}
 	
 	// Update is called once per frame
@@ -31,7 +30,10 @@ public class FollowCameraHolder : MonoBehaviour {
 
 		_angleChange = DecideAngle ();
 
-		transform.Rotate (Vector3.up, Time.deltaTime * _angleChange * _lerpSpeed, Space.World);
+		_direction += (Mathf.Sign (_angleChange) - _direction) * Time.deltaTime * _dirSpeed;
+		_angleChange = Mathf.Clamp(Mathf.Abs (_angleChange), 0f, 45f);
+
+		transform.Rotate (Vector3.up, Time.deltaTime * _direction * _angleChange * _angleSpeed, Space.World);
 	}
 
 	float DecideAngle(){
