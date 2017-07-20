@@ -13,6 +13,8 @@ public class animationController : MonoBehaviour
 
 	Vector3 neckInitPos, neckInitRot;
 
+	public Transform rShould, rElbow, rWrist, rHand, lShould, lElbow, lWrist, lHand;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -102,7 +104,7 @@ public class animationController : MonoBehaviour
 			if (playerScript.HeldObject == null)
 				StartCoroutine(crossFadeAnims("run",0.1f));
 			else
-				StartCoroutine(crossFadeAnims("run",0.1f));
+				StartCoroutine(crossFadeAnims("runNoArms",0.1f));
 
 		} 
 		
@@ -111,6 +113,19 @@ public class animationController : MonoBehaviour
 	void LateUpdate(){
 
 		neck.localEulerAngles = playerCam.transform.localEulerAngles + neckInitRot;
+
+		if(playerScript.HeldObject != null){
+			
+			rElbow.transform.position = (playerScript.col.transform.position + rShould.transform.position)/2f;
+			rWrist.transform.position = playerScript.col.transform.position ;
+			//rHand.transform.position = playerScript.col.transform.position;
+
+			lElbow.transform.position = (playerScript.col.transform.position + lShould.transform.position)/2f;
+			lWrist.transform.position = playerScript.col.transform.position ;
+
+
+		}
+
 
 	}
 
