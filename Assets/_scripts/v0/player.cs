@@ -7,7 +7,7 @@ public class player : MonoBehaviour
 {
 
 
-	CharacterController control;
+	public CharacterController control;
 
 	[Range (40f, 100f)]
 	public float rotationVal;
@@ -103,10 +103,14 @@ public class player : MonoBehaviour
 				isCrouching = false;
 			}
 			if (isCrouching) {
-				control.height = 1;
+				if(control.height >1)
+					control.height -= Time.deltaTime;
 				Camera.main.transform.localPosition = Vector3.zero;
 			} else {
-				control.height = 2;
+				if(control.height <2){
+					control.height += Time.deltaTime;
+					transform.position += new Vector3(0f,Time.deltaTime,0f);
+				}
 				//Camera.main.transform.localPosition = new Vector3 (0, 0.75f, 0);
 			}
 		}

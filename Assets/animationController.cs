@@ -28,52 +28,83 @@ public class animationController : MonoBehaviour
 	void Update ()
 	{
 
+		Debug.Log(playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("walk1"));
+		
+		if(!Input.anyKey && playerScript.leftRightLook == 0 && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("crouch") && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("standUp")){
+			if(!playerScript.isCrouching)
+				playerAnimator.CrossFade("emptyAnim", 0.2f);
 
+			else
+				playerAnimator.CrossFade("emptyAnimCrouch", 0.2f);
+
+		}
+			
+
+
+		//turning
+		if (playerScript.leftRightLook != 0 && !Input.GetKey (KeyCode.Space) && !Input.GetKey (KeyCode.V)) {
+			if(!playerScript.isCrouching){
+				if (playerScript.HeldObject != null){
+					if (playerScript.leftRightLook > 0){
+
+						StartCoroutine(crossFadeAnims("turningRightNoArms",0.1f));
+						//ADD STUFF ABOUT ANIM SPEED FASTER IF TURNING FASTER
+						//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
+					}else {
+						StartCoroutine(crossFadeAnims("turningLeftNoArms",0.1f));
+						//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
+					}
+				}else if (playerScript.leftRightLook > 0){
+					StartCoroutine(crossFadeAnims("turningRight",0.1f));
+				
+					//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
+				}else{
+					StartCoroutine(crossFadeAnims("turningLeft",0.1f));
+					//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
+				}
+			}
+		} else
+			//if(playerAnimator.GetCurrentAnimatorStateInfo(0) == null)
+			//playerAnimator.Play ("emptyAnim");
+
+			if (Input.GetKey (KeyCode.Space) && !playerScript.isCrouching && !Input.GetKey (KeyCode.V)) {
+
+				if (playerScript.HeldObject == null){
+
+					StartCoroutine(crossFadeAnims("walk1",0.1f));
+				}
+			else
+					StartCoroutine(crossFadeAnims("walkNoArms",0.1f));
+		}
+
+		if(Input.GetKeyDown (KeyCode.C)){
+			if(!playerScript.isCrouching)
+				StartCoroutine(crossFadeAnims("crouch",0.1f));
+			else
+				StartCoroutine(crossFadeAnims("standUp",0.1f));
+
+
+		}
 
 		if(playerScript.isCrouching){
 			if(Input.GetKey (KeyCode.Space)) {
 
 				if (playerScript.HeldObject == null)
-					playerAnimator.Play ("crouchWalk");
+					StartCoroutine(crossFadeAnims("crouchWalk",0.1f));
 				else
-					playerAnimator.Play ("crouchWalkNoArms");
-			}
+					StartCoroutine(crossFadeAnims("crouchWalkNoArms",0.1f));
+			} 
+			//else
+				//playerAnimator.Play ("emptyAnimCrouch");
+		} 
 
-		} else if(Input.GetKey (KeyCode.V) && !playerScript.isCrouching){
+		if(Input.GetKey (KeyCode.V) && !playerScript.isCrouching){
 			if (playerScript.HeldObject == null)
-				playerAnimator.Play ("run");
+				StartCoroutine(crossFadeAnims("run",0.1f));
 			else
-				playerAnimator.Play ("runNoArms");
+				StartCoroutine(crossFadeAnims("run",0.1f));
 
-		} else if (Input.GetKey (KeyCode.Space) && !playerScript.isCrouching) {
-
-			if (playerScript.HeldObject == null)
-				playerAnimator.Play ("walk1");
-			else
-				playerAnimator.Play ("walkNoArms");
-		} else if (playerScript.leftRightLook != 0) {
-			if (playerScript.HeldObject != null){
-				if (playerScript.leftRightLook > 0){
-					playerAnimator.Play ("turningRightNoArms");//ADD STUFF ABOUT ANIM SPEED FASTER IF TURNING FASTER
-					//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
-				}else {
-					playerAnimator.Play ("turningLeftNoArms");
-					//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
-				}
-			}else if (playerScript.leftRightLook > 0){
-				playerAnimator.Play ("turningRight");
-				//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
-			}else{
-				playerAnimator.Play ("turningLeft");
-				//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
-			}
-		} else{
-
-			if(playerScript.isCrouching)
-				playerAnimator.Play ("emptyAnimCrouch");
-			else
-				playerAnimator.Play ("emptyAnim");
-		}
+		} 
 		
 	}
 
@@ -81,5 +112,12 @@ public class animationController : MonoBehaviour
 
 		neck.localEulerAngles = playerCam.transform.localEulerAngles + neckInitRot;
 
+	}
+
+	IEnumerator crossFadeAnims (string animName, float seconds){
+
+		playerAnimator.CrossFade(animName,seconds);
+		yield return new WaitForSeconds(seconds);
+		playerAnimator.Play(animName);
 	}
 }
