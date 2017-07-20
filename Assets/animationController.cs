@@ -27,8 +27,13 @@ public class animationController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if(Input.GetKey (KeyCode.V)){
+			if (playerScript.HeldObject == null)
+				playerAnimator.Play ("run");
+			else
+				playerAnimator.Play ("runNoArms");
 
-		if (Input.GetKey (KeyCode.Space)) {
+		} else if (Input.GetKey (KeyCode.Space)) {
 
 			if (playerScript.HeldObject == null)
 				playerAnimator.Play ("walk1");
