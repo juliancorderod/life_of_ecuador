@@ -23,7 +23,7 @@ public class player : MonoBehaviour
 
 	int layerMask = 1 << 8;
 	bool lookatObject = false;
-	GameObject col;
+	public GameObject col;
 
 	public GameObject pointer;
 
