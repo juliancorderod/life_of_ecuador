@@ -28,6 +28,8 @@ public class animationController : MonoBehaviour
 	void Update ()
 	{
 
+
+
 		if(playerScript.isCrouching){
 			if(Input.GetKey (KeyCode.Space)) {
 
@@ -37,14 +39,13 @@ public class animationController : MonoBehaviour
 					playerAnimator.Play ("crouchWalkNoArms");
 			}
 
-		}else
-		if(Input.GetKey (KeyCode.V)){
+		} else if(Input.GetKey (KeyCode.V) && !playerScript.isCrouching){
 			if (playerScript.HeldObject == null)
 				playerAnimator.Play ("run");
 			else
 				playerAnimator.Play ("runNoArms");
 
-		} else if (Input.GetKey (KeyCode.Space)) {
+		} else if (Input.GetKey (KeyCode.Space) && !playerScript.isCrouching) {
 
 			if (playerScript.HeldObject == null)
 				playerAnimator.Play ("walk1");
@@ -67,8 +68,11 @@ public class animationController : MonoBehaviour
 				//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
 			}
 		} else{
-			
-			playerAnimator.Play ("idle1");
+
+			if(playerScript.isCrouching)
+				playerAnimator.Play ("emptyAnimCrouch");
+			else
+				playerAnimator.Play ("emptyAnim");
 		}
 		
 	}
