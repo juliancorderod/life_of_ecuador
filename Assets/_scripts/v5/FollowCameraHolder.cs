@@ -5,11 +5,14 @@ using UnityEngine;
 public class FollowCameraHolder : MonoBehaviour {
 	private GameObject _followed;
 
-	private float _angleSpeed = .5f;
-	private float _dirSpeed = 2f;
+	//angle code
+	private float _angleSpeed = 1.5f;
+	private float _dirSpeed = 3f;
 
 	private float _angleChange;
 	public float _direction;
+
+	//pos code
 
 	void Awake(){
 		_followed = GameObject.FindGameObjectWithTag ("Player");
