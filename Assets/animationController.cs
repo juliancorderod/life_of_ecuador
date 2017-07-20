@@ -11,20 +11,22 @@ public class animationController : MonoBehaviour
 	public Transform neck;
 	public GameObject playerCam;
 
+	Vector3 neckInitPos, neckInitRot;
+
 	// Use this for initialization
 	void Start ()
 	{
 
 		playerAnimator = GetComponent<Animator> ();
 
+		neckInitPos = neck.position;
+		neckInitRot = neck.localEulerAngles;
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-
-		//neck.localEulerAngles = new Vector3(neck.localEulerAngles.x ,neck.localEulerAngles.y,playerCam.transform.localEulerAngles.x) ;
 
 		if (Input.GetKey (KeyCode.Space)) {
 
@@ -48,8 +50,16 @@ public class animationController : MonoBehaviour
 				playerAnimator.Play ("turningLeft");
 				//playerAnimator.speed = Mathf.Abs(playerScript.leftRightLook * 0.7f);
 			}
-		} else
+		} else{
+			
 			playerAnimator.Play ("idle1");
+		}
 		
+	}
+
+	void LateUpdate(){
+
+		neck.localEulerAngles = playerCam.transform.localEulerAngles + neckInitRot;
+
 	}
 }
