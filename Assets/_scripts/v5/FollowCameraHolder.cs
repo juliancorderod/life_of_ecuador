@@ -12,6 +12,13 @@ public class FollowCameraHolder : MonoBehaviour {
 	private float _angleChange;
 	public float _direction;
 
+	private float _posSpeed = 2.5f;
+
+	private Vector3 _init_pos;
+
+	private float _min_Y;
+	private float _max_Y;
+
 	//pos code
 
 	void Awake(){
@@ -20,8 +27,13 @@ public class FollowCameraHolder : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (transform.parent != null)
+		if (transform.parent != null) {
+			_init_pos = transform.localPosition;
+			_min_Y =  -1.5f;
+			_max_Y = .5f;
+
 			transform.parent = null;
+		}
 
 		_angleChange = 0f;
 		_direction = 0f;
@@ -29,14 +41,14 @@ public class FollowCameraHolder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = _followed.transform.position;
-
 		_angleChange = DecideAngle ();
 
 		_direction += (Mathf.Sign (_angleChange) - _direction) * Time.deltaTime * _dirSpeed;
 		_angleChange = Mathf.Clamp(Mathf.Abs (_angleChange), 0f, 45f);
 
 		transform.Rotate (Vector3.up, Time.deltaTime * _direction * _angleChange * _angleSpeed, Space.World);
+		transform.position = Vector3.Lerp (transform.position, new Vector3(_followed.transform.position.x, Mathf.Clamp((transform.position.y - _followed.transform.position.y),_min_Y,_max_Y) + _followed.transform.position.y, _followed.transform.position.z),
+			Time.deltaTime * _posSpeed);
 	}
 
 	float DecideAngle(){
