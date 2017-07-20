@@ -263,7 +263,7 @@ public class player : MonoBehaviour
 								}
 							}
 						}
-						object_camera.orthographic = false;
+						//object_camera.orthographic = false;
 						if (col.gameObject.GetComponent<thing> () != null)
 							col.gameObject.GetComponent<thing> ().SetCloneActive (false);
 						col.transform.localPosition = _heldPos;
@@ -281,8 +281,8 @@ public class player : MonoBehaviour
 		if (col != null && lookatObject && col.tag != "joint") {//look at object
 			col.gameObject.GetComponent<thing>().SetCloneActive(false);
 
-			object_camera.orthographic = true;
-			object_camera.orthographicSize = Mathf.Sqrt (col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude));
+			//object_camera.orthographic = true;
+			//object_camera.orthographicSize = Mathf.Sqrt (col.GetComponent<MeshFilter> ().sharedMesh.bounds.size.magnitude * (col.transform.localScale.magnitude));
 
 			leftRightLookObj = Input.GetAxis ("Mouse X") * Time.deltaTime * rotationVal;
 			upDownLookObj = Input.GetAxis ("Mouse Y") * Time.deltaTime * rotationVal;
