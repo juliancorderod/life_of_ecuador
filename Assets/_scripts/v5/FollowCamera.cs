@@ -5,7 +5,11 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour {
 	private int _on;
 
-	private float _y;
+	private Vector3 _initLocal;
+	private Vector3 _pos;
+
+	private float _lerpSpeed = .5f;
+	private GameObject _followedObj;
 
 	void Awake(){
 		GameObject.DontDestroyOnLoad (gameObject);
@@ -16,7 +20,8 @@ public class FollowCamera : MonoBehaviour {
 		//toggle camera on/off
 		_on = 2;
 
-		_y = transform.position.y;
+		_initLocal = transform.localPosition;
+		_followedObj = transform.parent.gameObject;
 	}
 	
 	// Update is called once per frame
@@ -27,6 +32,8 @@ public class FollowCamera : MonoBehaviour {
 
 		GetComponent<Camera> ().depth = _on - 1;
 
-		transform.position = new Vector3 (transform.position.x, _y, transform.position.z);
+		//_pos = new Vector3(_initLocal.x, Mathf.Clamp(
+
+		//transform.localPosition = Vector3.Lerp (transform.position, _pos, Time.deltaTime * _lerpSpeed);
 	}
 }
