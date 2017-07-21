@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 public class playerLoadScript : MonoBehaviour {
 
 	public GameObject playerPrefab;
+	public GameObject cameraThirdPerson;
 
 	void Awake(){
 		Instantiate(playerPrefab);
+		Instantiate(cameraThirdPerson);
 		SceneManager.LoadScene ("_WAITINGROOM_v2");
 
 	}
