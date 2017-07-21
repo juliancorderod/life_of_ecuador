@@ -23,6 +23,9 @@ public class FollowCameraHolder : MonoBehaviour {
 
 	void Awake(){
 		_followed = GameObject.FindGameObjectWithTag ("Player");
+			
+		DontDestroyOnLoad(transform.gameObject);
+
 	}
 
 	// Use this for initialization
