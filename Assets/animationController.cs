@@ -36,9 +36,10 @@ public class animationController : MonoBehaviour
 	void Update ()
 	{
 
-		Ray _groundRay = new Ray (transform.position + new Vector3(0,2,0), -transform.up);
+		Ray _groundRay = new Ray (transform.position + new Vector3(0,1,0), -transform.up);
 		RaycastHit _groundHit = new RaycastHit ();
-		bool grounded = Physics.Raycast (_groundRay, out _groundHit, 2);
+		bool grounded = Physics.Raycast (_groundRay, out _groundHit, 2f);
+		Debug.DrawRay(_groundRay.origin,_groundRay.direction * 1.5f,Color.red);
 
 		if (!grounded) {
 			StartCoroutine (crossFadeAnims ("fall", 0.2f));

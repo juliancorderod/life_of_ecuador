@@ -30,13 +30,13 @@ public class FollowCameraHolder : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (transform.parent != null) {
+		//if (transform.parent != null) {
 			_init_pos = transform.localPosition;
 			_min_Y =  -1.5f;
 			_max_Y = .5f;
 
-			transform.parent = null;
-		}
+		//	transform.parent = null;
+		//}
 
 		_angleChange = 0f;
 		_direction = 0f;
