@@ -16,13 +16,13 @@ public class player : MonoBehaviour
 	public bool isCrouching = false;
 
 
-	RaycastHit hit;
+	public RaycastHit hit;
 	bool carryingObject = false;
 	public string HeldObjectName = "";
 	public GameObject HeldObject;
 
 	int layerMask = 1 << 8;
-	bool lookatObject = false;
+	public bool lookatObject = false;
 	public GameObject col;
 
 	public GameObject pointer;

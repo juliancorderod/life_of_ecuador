@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class toCarRoom : MonoBehaviour {
+public class toFinalRoom : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +17,7 @@ public class toCarRoom : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		if (col.gameObject.tag == "Player") {
-			SceneManager.LoadScene ("_CARROOM_v5");
-
+			SceneManager.LoadScene ("_FINAL_ROOM");
 		}
 	}
 }
