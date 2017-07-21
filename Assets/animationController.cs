@@ -35,7 +35,7 @@ public class animationController : MonoBehaviour
 		Ray _groundRay = new Ray (transform.position - transform.up / 10f, -transform.up);
 		RaycastHit _groundHit = new RaycastHit ();
 
-		//Debug.DrawRay (_groundRay.origin, _groundRay.direction * _groundDistance, Color.red);
+
 
 		bool grounded = Physics.Raycast (_groundRay, out _groundHit, 2);
 
