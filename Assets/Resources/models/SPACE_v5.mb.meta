@@ -691,6 +691,9 @@ ModelImporter:
     101366: pCube28
     101368: transform15
     101370: transform16
+    101372: pCube30
+    101374: polySurface3609
+    101376: polySurface3615
     400000: pasted__pCube5
     400002: pCube11
     400004: pCube13
@@ -1377,6 +1380,9 @@ ModelImporter:
     401366: pCube28
     401368: transform15
     401370: transform16
+    401372: pCube30
+    401374: polySurface3609
+    401376: polySurface3615
     2300000: pCube11
     2300002: pCube13
     2300004: pCube16
@@ -2035,6 +2041,9 @@ ModelImporter:
     2301310: pCube25
     2301312: pCube27
     2301314: pCube28
+    2301316: pCube30
+    2301318: polySurface3609
+    2301320: polySurface3615
     3300000: pCube11
     3300002: pCube13
     3300004: pCube16
@@ -2693,6 +2702,9 @@ ModelImporter:
     3301310: pCube25
     3301312: pCube27
     3301314: pCube28
+    3301316: pCube30
+    3301318: polySurface3609
+    3301320: polySurface3615
     4300000: pCube3
     4300002: wall5
     4300004: polySurface16
@@ -3351,6 +3363,9 @@ ModelImporter:
     4301310: pCube25
     4301312: pCube27
     4301314: pCube28
+    4301316: polySurface3615
+    4301318: pCube30
+    4301320: polySurface3609
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -3378,7 +3393,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 2
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
