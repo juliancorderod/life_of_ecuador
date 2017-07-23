@@ -8,19 +8,18 @@ public class Animatable : MonoBehaviour {
 	//all exported with 0 delay
 	public float _frame_delay;
 
-	private bool _ready;
+	public bool _ready;
 	private Sprite[] _frames;
 
 	private SpriteRenderer _rend;
 
 	private int _ind;
 	private float _time;
+	private int _dir;
 
 	// Use this for initialization
 	void Start () {
 		_ready = false;
-		_ind = 0;
-		_time = 0f;
 
 		_rend = GetComponent<SpriteRenderer> ();
 
@@ -28,8 +27,16 @@ public class Animatable : MonoBehaviour {
 			_frames = Resources.LoadAll<Sprite> ("_loops/" + _name);
 
 			if (_frames.Length > 0) {
-				if (_frames.Length > 1) 
+				if (_frames.Length > 1) {
 					_ready = true;
+					if (Random.Range (0, 2) == 0)
+						_dir = 1;
+					else
+						_dir = -1;
+					
+					_ind = Random.Range (0, _frames.Length);
+					_time = 0f;
+				}
 				
 				GetComponent<SpriteRenderer> ().sprite = _frames [0];
 			}
@@ -40,10 +47,10 @@ public class Animatable : MonoBehaviour {
 	void Update () {
 		if (_ready) {
 			if (_time >= _frame_delay) {
-				if (_ind >= _frames.Length - 1)
+				if ((_ind+_dir) >= _frames.Length - 1 || (_ind+_dir) <= 0)
 					_ind = 0;
 				else
-					++_ind;
+					_ind += _dir;
 
 				_time = 0f;
 				SetSprite ();
