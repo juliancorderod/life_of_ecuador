@@ -117,7 +117,7 @@ public class animationController : MonoBehaviour
 			if (!playerScript.lookatObject) {
 			
 				if (Input.GetKeyDown (KeyCode.C) && !Input.GetKey (KeyCode.Space)) {
-					if (!playerScript.isCrouching)
+					if (playerScript.isCrouching)
 						StartCoroutine (crossFadeAnims ("crouch", 0.1f));
 					else
 						StartCoroutine (crossFadeAnims ("standUp", 0.1f));
