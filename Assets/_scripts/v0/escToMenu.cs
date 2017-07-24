@@ -30,6 +30,10 @@ public class escToMenu : MonoBehaviour {
 			GameObject g = GameObject.FindGameObjectWithTag ("Player");
 			if (g != null)
 				GameObject.Destroy (g);
+			
+			GameObject h = GameObject.FindGameObjectWithTag ("thirdPCam");
+			if (h != null)
+				GameObject.Destroy (h);
 			SceneManager.LoadScene ("_MENUSCREEN_v2");
 		}
 
