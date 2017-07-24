@@ -75,6 +75,7 @@ public class Spawn : MonoBehaviour {
 			_new_branch.transform.localScale = _scale;
 
 			_new_branch.GetComponent<Branch> ()._percent = _perlin;
+			_new_branch.GetComponent<ParticleSystem> ().Stop ();
 		}
 	}
 }
